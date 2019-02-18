@@ -1,0 +1,37 @@
+\begin{tikzpicture}[>=latex]
+
+% Draw the lines at multiples of pi/12
+% Concentric circles and radius labels
+
+\foreach \ang in {0,...,31} {
+  \draw [lightgray] 
+  (\ang * 180 / 16:1) -- 
+  (\ang * 180 / 16:4);
+}
+
+\foreach \s in {2, 3, 4, 5, 6, 7, 8} { 
+  \draw [lightgray] (0,0) circle (\s/2);
+}
+
+%%% define auxiliary constants
+
+\def\Ab{(\ta*4 - \tb)/3}
+\def\Bb{(\tb   - \ta)/3}
+
+\def\Ac{(\ta*4 - \tc)/3}
+\def\Bc{(\tc   - \ta)/3}
+
+%% neutral line
+
+\draw [line width=2pt,color=black,domain=1:4,samples=50,smooth] 
+plot (xy polar cs:angle={ln(\x)*\ta r},radius=\x) node [below] {A};
+
+%% first variation 
+\draw [line width=2pt,color=red,domain=1:4,samples=50,smooth] 
+plot (xy polar cs:angle={(ln(\x)*\Ab + \Bb*(\x - 1)) r},radius=\x) node [below] {B};
+
+%% second variation
+\draw [line width=2pt,color=blue,domain=1:4,samples=50,smooth] 
+plot (xy polar cs:angle={(ln(\x)*\Ac + \Bc*(\x - 1)) r},radius=\x) node [above] {C};
+
+\end{tikzpicture} 

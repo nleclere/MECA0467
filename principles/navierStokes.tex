@@ -1,0 +1,134 @@
+% Reynolds transport theorem
+% mass conservation
+% momentum conservation, pressure and shear stress
+% energy conservation, heat flux
+% thermodynamic EoS - incompressible / compressible / ideal gas
+% second law of thermodynamics
+
+\section{The Navier-Stokes equations}
+
+We now apply the Reynolds transport theorem a fluid parcel moving with
+velocity $\aVelV$. Therefore we consider its enclosing control volume
+$\vol$. Since the control volume moves with the fluid we have
+$\aVelV_\vol = \aVelV$. Then we can apply conservation of mass, Newtons
+equation of motion (conservation of momentum) and the first law of
+thermodynamics (conservation of energy) to the volume, to find the
+Navier-Stokes equations.
+
+\subsection{Conservation of mass} 
+
+Since the control volume moves with the fluid, its mass does not
+change, and thus
+\begin{align*}
+  \ddtM{} \int_{\vol} \dens~dV = 0
+\end{align*}
+Applying the transport theorem we find the \emph{conservative} form of
+equation governing the conservation of mass, also called the
+\emph{continuity equation}:
+\begin{equation}
+  \int_{\vol} \ddt{\dens}~dV + \oint_{\srf} \dens (\aVelV \cdot \nrmV)~dS = 0
+  \label{eq:massConservationIntegral}
+\end{equation}
+Using the divergence theorem and the fact that equation
+\ref{eq:massConservationIntegral} holds for any parcel of fluid,
+however small, we find an equivalent \emph{differential} form:
+\begin{equation}
+  \ddt{\dens} + \dive \dens \aVelV = 0
+  \label{eq:massConservationDifferential}
+\end{equation}
+
+\subsection{Conservation of momentum} 
+
+Following Newton's law, the momentum enclosed in the volume changes
+through the action of the body forces, including gravity $\gravV$, and
+the stress \stressT~on the contour:
+\begin{align*}
+  \ddtM{} \int_{\vol} \dens \aVelV~dV = \int_{\vol} \dens \gravV~dV +
+  \oint_{\srf} (\stressT \cdot \nrmV)~dS
+\end{align*}
+As discussed before, the stress in the fluid is composed of the
+hydrodynamic pressure $p$ and the shear stress $\shearStressT$
+\begin{align*}
+  \stressT = - \pres \identityT + \shearStressT 
+\end{align*}
+Applying this decomposition and the transport theorem we find the
+conservative form of the momentum equation
+\begin{equation}
+  \int_{\vol} \ddt {\dens \aVelV}~dV + 
+  \oint_{\srf} \left(\dens \aVelV \aVelV + p\right) \cdot \nrmV ~dS = 
+  \int_{\vol} \dens \gravV~dV +
+  \oint_{\srf} \shearStressT \cdot \nrmV~dS
+  \label{eq:momentumConservationIntegral}
+\end{equation}
+Using the divergence theorem, we then find the differential form 
+\begin{equation}
+  \ddt {\dens \aVelV} + 
+  \dive \dens \aVelV \aVelV + \grad p = \dens \gravV + \dive \shearStressT  
+  \label{eq:momentumConservationDifferential}
+\end{equation}
+
+\subsection{Conservation of energy}
+
+The specific, \ie per unit of mass, \emph{internal energy} is defined
+as
+\begin{align*}
+  \ener = \heatCapV T
+\end{align*}
+with \heatCapV~the heat capacity at constant volume and \temp~ the
+temperature. The total internal energy \tEner~is then defined as the
+sum of the internal energy, the kinetic energy and the gravitational
+potential:
+\begin{align*}
+  \tEner = \ener + \frac{1}{2} \aVel^2 +
+  \grav z = \ener + \eKin + \eGrav = \ener + \eMech
+\end{align*}
+Here we assume $\gravV = - \grav \unitV{z}$, and grouped the kinetic
+energy and gravity potential in the mechanical energy $\eMech = \eKin
++ \eGrav$. Obviously, the energy per unit of volume is $\dens \tEner$.
+
+Following the first law of thermodynamics, the change of energy of a
+closed volume is equal to the work exerted by the stress $\stressT
+\cdot \nrmV$ and the heat flux $\heatFluxV \cdot \nrmV$ through the
+surface $\srf$. This law can be applied to the control volume around a
+fixed parcel of fluid:
+\begin{align*}
+  \ddtM{} \int_{\vol} \dens \tEner dV = 
+  \oint_{\srf} \aVelV \cdot (\stressT \cdot \nrmV)~dS + 
+  \oint_{\srf} \heatFluxV \cdot \nrmV~dS 
+\end{align*}
+Using the decomposition of the stress together with the transport
+equation we find:
+\begin{align*}
+  \int_{\vol} \ddt{\dens \tEner} dV + 
+  \oint_{\srf} \dens \tEner (\aVelV \cdot \nrmV)~dS + 
+  \oint_{\srf} p \aVelV \cdot \nrmV~dS = 
+  \oint_{\srf} \aVelV \cdot (\shearStressT \cdot \nrmV)~dS +
+  \oint_{\srf} \heatFluxV \cdot \nrmV~dS
+\end{align*}
+Defining the \emph{static} and \emph{total} or \emph{stagnation}
+enthalpy resp. as
+\begin{align*}
+  \enth &= \ener + \frac{\pres}{\dens} \\
+  \tEnth &= \tEner + \frac{\pres}{\dens} = \enth + \eKin
+\end{align*}
+we can rewrite conservative form of the energy equation as
+\begin{equation}
+  \int_{\vol} \ddt{\dens \tEner} dV + 
+  \oint_{\srf} \dens \tEnth (\aVelV \cdot \nrmV)~dS  = 
+  \oint_{\srf} \aVelV \cdot (\shearStressT \cdot \nrmV)~dS +
+  \oint_{\srf} \heatFluxV \cdot \nrmV~dS
+  \label{eq:energyConservationIntegral}
+\end{equation}
+whereas the differential form describes the time evolution of the
+total energy per unit of volume:
+\begin{equation}
+  \ddt{\dens \tEner} + \dive  \dens \tEnth \aVelV   = 
+  \dive \shearStressT \cdot \aVelV + \dive \heatFluxV
+  \label{eq:energyConservationDifferential}
+\end{equation}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

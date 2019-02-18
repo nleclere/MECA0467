@@ -1,0 +1,92 @@
+
+\subsection*{Theory}
+
+\begin{enumerate}
+\item First 
+  \begin{align*}
+    \dive a \mathbf b 
+    = \dd{}{x_i} \unitV{i} \cdot a b_j \unitV{j} = \dd{ab_j}{x_i} \delta_{ij} 
+    = \dd{a}{x_i} b_i + a \dd{b_i}{x_i} 
+    = \grad a \cdot \mathbf b + a \dive \mathbf b
+  \end{align*}
+  then 
+  \begin{align*}
+    \int_\vol \dive a \mathbf b dV &= \int_\vol \left(\grad a \cdot
+      \mathbf b + a \dive \mathbf b\right) dV &\Rightarrow& \int_\srf
+    a \mathbf b \cdot \nrmV dS &= \int_\vol \left(\grad a \cdot
+      \mathbf b + a \dive \mathbf b\right) dV
+  \end{align*}
+\item Developing the equation using indices we find
+  \begin{align*}
+    \dive \aVelV \cdot \shearStressT  
+    &= \dd{}{x_i} \unitV{i} \cdot \left(\aVel_i \shearStress_{ij} \unitV{j}\right) 
+    = \dd{\aVel_i}{x_j} \shearStress_{ij} + 
+    \aVel_i \dd{\shearStress_{ij}}{x_j} = \left(\grad \aVel\right)_{ij} \shearStress_{ij} + 
+    \aVel_i \left(\dive \shearStress \right)_i = \grad \aVelV : \shearStressT + 
+    \aVelV \cdot \dive \shearStressT    
+  \end{align*}
+\item We have $\grad \aVelV = \shearRateT + \rotRateT$. Since
+  $\shearStressT$ is symmetric and $\rotRateT$ antisymmetric we have
+  $\shearStressT:\rotRateT = 0$
+
+  
+  Then we replace $\shearStressT = 2 \dynVisc \shearRateT - \lambda
+  (\dive \aVelV) \identityT$.
+  \begin{align*}
+    \shearStressT : \grad \aVelV &= \shearStressT : \shearRateT =
+    \left(2 \dynVisc \shearRateT - \bulkVisc \left(\dive \aVelV\right)~
+      \identityT\right) : \shearRateT 
+  \end{align*}
+  
+  We have $\identityT : \shearRateT = \shearRate_{ij} \delta_{ij} =
+  \sum_i \shearRate_{ii} = \dive \velV$. Then, considering $\bulkVisc
+  = 2 \dynVisc / 3$
+  \begin{align*}
+    \shearStressT : \grad \aVelV 
+    &= \shearStressT : \shearRateT 
+    = 2 \dynVisc \left(
+      \shearRateT:\shearRateT - 
+      \frac{1}{3} \left(\dive \aVelV\right)^2 \right)
+    = 2 \dynVisc \left(
+      \underbrace{\sum_{i\neq j} \shearRate_{ij}^2}_{A} + 
+      \underbrace{
+        \sum_i \shearRate_{ii}^2 - 
+        \frac{1}{3} \sum_i \sum_j \shearRate_{ii} \shearRate_{jj}}_{B}\right) 
+  \end{align*}
+  
+  Since obviously $A \geq 0$, we continue with $B$
+  \begin{align*}
+    3~B &= 
+    2 \shearRate_{11}^2 + 
+    2 \shearRate_{22}^2 + 
+    2 \shearRate_{33}^2 -  
+    2 \shearRate_{11} \shearRate_{22} -
+    2 \shearRate_{22} \shearRate_{33} - 
+    2 \shearRate_{33} \shearRate_{11} \\
+    &=(\shearRate_{11} - \shearRate_{22})^2 +
+      (\shearRate_{22} - \shearRate_{33})^2 +
+      (\shearRate_{33} - \shearRate_{11})^2 \geq 0
+  \end{align*}
+  
+\item prove
+  $\rotV \times \rotV \times \xyzV = - \rot^2 r
+  \unitV{r}$
+  
+\item solid body rotation 
+
+  Without loss of generality, align $\rotV$ with the axis $\unitV{z}$,
+  and center it in the origin. Then the equations for a point $\xyzV =
+  (x_1,x_2,x_3)$ reduce to
+  \begin{align*}
+    \ddtM{x_1} &= - \rot x_2 &
+    \ddtM{x_2} &= \rot x_1 &
+    \ddtM{x_3} &= 0
+  \end{align*}
+  which has the solution 
+  \begin{align*}
+    x_1 &= r \cos {\rot t} &
+    x_2 &= r \sin {\rot t} &
+    x_3 &= C
+  \end{align*}
+    
+\end{enumerate}

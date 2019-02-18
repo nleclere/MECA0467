@@ -1,0 +1,85 @@
+
+\tikzsetnextfilename{shockLosses}
+\begin{tikzpicture}[scale=0.8]
+
+  %\scriptsize
+
+  \def\a{30}
+  
+  \def\vrNom{6}
+  \def\wrNom{\vrNom}
+  \def\vrAct{4}
+  \def\wrAct{\vrAct}
+  \def\uTan{12}
+  
+  \def\vuNom{\vrNom*tan(\a)}
+  \def\vuAct{\vrAct*tan(\a)}
+  
+  \def\bNom{atan((\uTan-\vuNom)/\vrNom)}
+  \def\bAct{atan((\uTan-\vuAct)/\vrAct)}
+  
+
+  \coordinate(CNom) at (0,0); %% top
+  \coordinate(BNom) at ({\vuNom-\uTan},-\wrNom);       %% 
+  \coordinate(ANom) at ({\vuNom},-\wrNom);
+  \coordinate(DNom) at (0,-\wrNom);
+  
+  \draw[<->,>=latex,line width=1.5pt] 
+  (BNom) node [left] {$B$} --
+  (CNom) node [pos=0.1,left,above,sloped]{$\rVelV$} node [at end,above] {$C$} --
+  (DNom) node [pos=0.9,left]{$\rVel_m$}
+  pic["$\beta$", draw=black,color=black,<-, angle eccentricity=1.4, angle radius=1.6cm]
+  {angle=BNom--CNom--DNom};
+
+  \draw[->,>=latex,line width=1.5pt] 
+  (DNom) --
+  (CNom) node [pos=0.1,right]{$\aVel_m$}  --
+  (ANom) node [pos=0.9,right,above,sloped]{$\aVelV$} node [at end,right]{$A$}
+  pic["$\alpha$", draw=black,color=black,->, angle eccentricity=1.4, angle radius=1.4cm]
+  {angle=DNom--CNom--ANom};
+
+  \coordinate(BAct) at ({\vuAct-\uTan},-\wrAct);       %% 
+  \coordinate(BShock) at ({-\vrAct*tan(\bNom)},-\wrAct);
+  
+  \coordinate(BActp) at ({\vuAct-\uTan},0);       %% 
+  \coordinate(BShockp) at ({-\vrAct*tan(\bNom)},0);
+  
+  
+  \coordinate(BActpp) at ({\vuAct-\uTan},{-0.05*\vrNom});       %% 
+  \coordinate(BShockpp) at ({-\vrAct*tan(\bNom)},{-0.05*\vrNom});
+  
+
+  \coordinate(AAct) at ({\vuAct},-\wrAct);
+  \coordinate(DAct) at (0,-\wrAct);
+  
+  \draw[<->,>=latex,color=red,line width=1.5pt] 
+  (BAct) node [left] {$B^\prime$} --
+  (CNom) node [pos=0.2,above,sloped]{$\rVelV^\prime$}  --
+  (DAct) node [pos=0.8,left]{$\rVel_m^\prime$}
+  pic["$\beta^\prime$", draw=red,color=red,<-, angle eccentricity=1.4, angle radius=0.8cm]
+  {angle=BAct--CNom--DAct};
+
+  \draw[->,>=latex,line width=1.5pt,color=red] 
+  (DAct) --
+  (CNom) node [pos=0.2,right]{$\aVel_m^\prime$}  --
+  (AAct) node [pos=0.8,right,above,sloped]{$\aVelV^\prime$} node [at end,right]{$A^\prime$};
+
+
+  \draw[->,>=latex,line width=1.5pt] 
+  (BNom) --(ANom) node [midway,above]{$\fVelV$};
+  \draw[->,>=latex,line width=1.5pt,color=red] 
+  (BAct) --(AAct) node [midway,above]{$\fVelV$};
+  \draw[dotted,line width=1pt] (BAct) -- (BNom){};
+  \draw[] (BShock) node [below]{$B^{\prime\prime}$};
+  
+  \draw[dotted,line width=1pt] (BAct) -- (BActp){};
+  \draw[dotted,line width=1pt] (BShock) -- (BShockp){};
+  \draw[->,line width=1.5pt] (BActpp) -- node[midway,above]{$\rVelV_s$} (BShockpp) {};
+
+  
+  \draw[->,>=latex,color=blue,line width=1.5pt] 
+  (CNom) --
+  (BShock) node [pos=0.8,sloped,above,color=blue]{$\rVelV^{\prime\prime}$};
+
+  
+\end{tikzpicture}

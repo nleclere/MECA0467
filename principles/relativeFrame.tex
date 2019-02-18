@@ -1,0 +1,319 @@
+
+\section{The Navier-Stokes equations in the relative frame}
+\label{sec:principles:navierStokesRelative}
+
+The Navier-Stokes equations have been derived in the absolute frame of
+reference. We now proceed to formulating these equations with respect
+to the rotating frame of reference attached to a turbomachinery rotor. 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{principles/frame.tikz}
+  \caption{Relation between velocities in the absolute and the relative frame}
+  \label{fig:frameOfReference}
+\end{figure}
+To this end we will first derive the equations for a generic frame of
+reference with speed $\fVelV$. 
+
+\subsection{Transformations from the absolute to the relative frame}
+
+The frame illustrated in figure \ref{fig:frameOfReference} undergoes a
+solid body motion, composed of a constant speed $\fVelV_l$ combined to
+a rotation $\rotV$ around an (arbitrarily) chosen center $\xyzV_c$:
+\begin{align*}
+  \fVelV =  
+  \fVelV_l + 
+  \rotV \times \left(\xyzV - \xyzV_c\right)
+\end{align*}
+
+We will now establish the relation between the velocity of a material
+point in the absolute frame $\aVelV$ and in the relative frame of
+reference $\rVelV$. At time t we align the coordinate systems of both
+frames. At $t+dt$, the relative frame has moved over $\fVelV dt +
+\mathcal O(dt^2)$, the attached coordinate system is not only
+displaced over the same distance but also rotated, to end up at
+$(x^\prime,y^\prime)$.
+
+In the absolute frame, the point $P$, initially coinciding with the
+material point, and fixed to the relative frame has moved to
+$P^\prime$ at $\xyzV^\prime = \xyzV + \fVelV~dt + \mathcal O(dt^2)$;
+ the
+material point has since moved within the relative frame from $P^\prime$ at $\xyzV^\prime$ to
+$\xyzV^{\prime \prime} = \xyzV^\prime + \rVelV~dt + \mathcal
+O(dt^2)$, with $\rVelV$ the relative velocity. Therefore the absolute velocity of the material particle is
+found from
+\begin{align*}
+  \aVelV = \lim_{dt\rightarrow 0} \frac{\xyzV^{\prime \prime} - \xyzV}{dt} = \fVelV + \rVelV
+\end{align*}
+
+The solid body movement implies that $\dive \fVelV = 0$. It is
+furthermore easily shown that $\grad \fVelV$ is an antisymmetric
+tensor, and therefore that $\grad \fVelV + \grad \fVelV^T=0$. Applying
+both of these results to the shear stress tensor definition, we find
+that it does not change in the relative frame:
+\begin{align*}
+  \shearStressT 
+  &= \dynVisc \left(\grad \aVelV + \grad \aVelV^T\right) - \bulkVisc \left(\dive \aVelV\right) \identityT \\
+  &= \dynVisc \left(\grad \rVelV + \grad \rVelV^T\right) - \bulkVisc \left(\dive \rVelV\right) \identityT
+\end{align*}
+% It is left as an exercise to show that
+% \begin{align*}
+%   \mathbf a \cdot \grad \fVelV = \rotV \times \mathbf a
+% \end{align*}
+
+The time derivatives relative to the frame of reference are different
+to that in the absolute frame since a point attached to the frame
+moves with respect to the absolute frame: as shown before the point
+$P$ at $\xyzV$ in the absolute frame at time $t$, will have moved to
+$P^\prime$ at $\xyzV^\prime = \xyzV + \fVelV dt$ at time $t +
+dt$. Using Taylor expansion, we compute the relative time derivative
+as
+\begin{align*}
+  \ddtR{a} &= \lim_{dt\rightarrow 0} \frac{1}{dt} 
+  \left(a\left(\xyzV+\fVelV~dt,t+dt\right) - a\left(\xyzV,t\right)\right) \\
+  &= \lim_{dt\rightarrow 0} \frac{1}{dt} \left(a\left(\xyzV,t\right) + \fVelV dt \cdot \grad a + dt \ddtA{a} + \mathcal O(dt^2) - a\left(\xyzV,t\right)\right) \\
+  &= \ddtA{a} + \fVelV \cdot \grad a
+\end{align*}
+
+The time derivative of a vector $\mathbf a$ relative to the frame is
+in principle transformed in the same way - if we keep the same system
+of coordinates. However, we want to express it in the system of axes
+attached to the relative frame. Since the orientation of the
+``relative'' system of axes changes with respect to the absolute, we
+see a change of direction, even if $\mathbf a$ stays constant in the
+absolute frame:
+\begin{align*}
+  \ddtR{\mathbf a} = 
+  \ddtA{\mathbf a} + 
+  \fVelV \cdot \grad \mathbf a - 
+  \rotV \times \mathbf a
+\end{align*}
+
+\subsection{Conservation of mass}
+
+The continuity equation has exactly the same form in the relative as
+in the absolute frame:
+\begin{align*}
+  \ddtA{\dens} + \dive \dens \aVelV = 0 &\Rightarrow
+  \ddtR{\dens} - 
+  \fVelV \cdot \grad \dens + 
+  \dive \dens \left(\rVelV + \fVelV\right) = 0 \\
+  &\Rightarrow
+  \ddtR{\dens} + 
+  \dive \dens \rVelV = 0
+\end{align*}
+
+\subsection{Conservation of momentum}
+
+First we replace the absolute time derivative in the momentum
+equation,
+\begin{align*}
+  \ddtA{\dens \aVelV} + 
+  \dive \dens \aVelV \aVelV +  
+  \grad p = 
+  \dens \gravV + \dive \shearStressT 
+  &\Rightarrow
+  \ddtR{\dens \aVelV} - 
+  \fVelV \cdot \grad \dens \aVelV + 
+  \rotV \times \dens \aVelV + 
+  \dive \dens \aVelV \aVelV +  
+  \grad p = 
+  \dens \gravV + \dive \shearStressT \\
+  &\Rightarrow
+  \ddtR{\dens \aVelV} - 
+  \dive \dens \fVelV \aVelV + 
+  \rotV \times \dens \aVelV + 
+  \dive \dens \aVelV \aVelV +  
+  \grad p = 
+  \dens \gravV + \dive \shearStressT
+\end{align*}
+to arrive at equation governing the \emph{absolute momentum} in the
+\emph{relative frame}. 
+\begin{equation}
+  \ddtR{\dens \aVelV} + 
+  \rotV \times \dens \aVelV + 
+  \dive \dens \rVelV \aVelV + 
+  \grad p = 
+  \dens \gravV + \dive \shearStressT
+  \label{eq:relativeAbsoluteMomentum}
+\end{equation}
+Then by replacing the absolute velocity by $\aVelV = \rVelV + \fVelV$:
+\begin{align*}
+  &\ddtR{\dens \rVelV} + 
+  \ddtR{\dens \fVelV} + 
+  \rotV \times \dens \rVelV + 
+  \rotV \times \dens \fVelV + 
+  \dive \dens \rVelV \rVelV + 
+  \dive \dens \rVelV \fVelV + \ldots \\
+  &\Rightarrow \ddtR{\dens \rVelV} + 
+  \dens \ddtR{\fVelV} + 
+  \fVelV \ddtR{\dens} + 
+  \rotV \times \dens \rVelV + 
+  \rotV \times \dens \fVelV + 
+  \dive \dens \rVelV \rVelV + 
+  \fVelV \left(\dive \dens \rVelV\right) + \rotV \times \dens \rVelV + \ldots \\
+  &\Rightarrow \ddtR{\dens \rVelV} + 
+  \dens \ddtR{\fVelV} + 
+  \fVelV \left(\ddtR{\dens} + \dive \dens \rVelV\right) +
+  2 \rotV \times \dens \rVelV +
+  \rotV \times \dens \fVelV + 
+  \dive \dens \rVelV \rVelV + \ldots 
+\end{align*}
+we arrive at the momentum equation in the relative frame
+\begin{equation}
+  \ddtR{\dens \rVelV} + \dive \dens \rVelV \rVelV + \grad p +
+  \underbrace{\dens \ddtR{\fVelV}}_{\mathbf F_f} + 
+  \underbrace{2 \rotV \times \dens \rVelV}_{\mathbf F_{co}} + 
+  \underbrace{\rotV \times \dens \fVelV}_{\mathbf F_{ce}} + 
+  = \dens \gravV + \dive \shearStressT  
+  \label{eq:relativeMomentum}
+\end{equation}
+Note the addition of three fictious forces $\mathbf F_f$, $\mathbf
+F_{co}$ and $\mathbf F_{ce}$, compensating the (virtual) acceleration
+\emph{seen} by the frame due to its motion. There are two cases of
+interest. 
+\begin{itemize}
+\item For a frame moving at constant linear speed, the momentum
+  equation retains the same form as in the absolute frame:
+  \begin{equation}
+    \ddtR{\dens \rVelV} + \dive \dens \rVelV \rVelV + \grad p
+    = \dens \gravV + \dive \shearStressT  
+    \label{eq:relativeMomentumLinear}
+  \end{equation}
+  as all fictitious forces are zero. 
+\item for a frame rotating about axis \unitV{a} centered in the
+  origin, we find
+  \begin{figure}
+    \centering
+    \includegraphics{principles/rotatingFrame.tikz}
+    \caption{Definition of polar coordinate system for a frame
+      rotating around axis \unitV{\omega}, with radial \unitV{r} and
+      azimuthal \unitV{u} directions, and $(z,r,\phi)$ the polar
+      coordinates of point $P$.}
+    \label{fig:polarRotatingFrame}
+  \end{figure}
+  \begin{equation}
+    \ddtR{\dens \rVelV}  + 
+    \dive \dens \rVelV \rVelV +
+    \underbrace{2 \rotV \times \dens \rVelV}_{\mathbf F_{co}} + 
+    \underbrace{- \dens \rot^2 r \unitV{r}}_{\mathbf F_{ce}}  + \grad p = \dens \gravV + \dive \shearStressT  
+    \label{eq:relativeMomentumRotating}
+  \end{equation}
+  adding the fictitious \emph{Coriolis} $\mathbf F_{co}$ and
+  \emph{centrifugal} force $\mathbf F_{ce}$. Here we have used $r$ as
+  the distance to the axis and $\unitV{r}$ the local radial direction,
+  as defined in figure \ref{fig:polarRotatingFrame}
+\end{itemize}
+
+\subsection{Conservation of energy}
+
+We can rewrite the stagnation energy and enthalpy in the absolute
+frame as
+\begin{align*}
+  \tEner &= \ener + \frac{1}{2} \aVel^2 = 
+  \ener + \frac{1}{2} \rVel^2 - \frac{1}{2} \fVel^2 + \fVelV \cdot \aVelV \\
+  \tEnth &= \enth + \frac{1}{2} \rVel^2 - \frac{1}{2} \fVel^2 + \fVelV \cdot \aVelV 
+\end{align*}
+We define the following functions
+\begin{equation}
+  \begin{split}
+    \roenergy &= \ener + \frac{1}{2} \rVel^2 - \frac{1}{2}\fVel^2  \\
+    \rothalpy &= \enth + \frac{1}{2} \rVel^2 - \frac{1}{2}\fVel^2  
+  \end{split}
+\end{equation}
+which will be shown to generalize stagnation energy and enthalpy in a
+moving frame of reference. First, we transform the different terms in
+the energy conservation equation
+\ref{eq:energyConservationDifferential} separately:
+\begin{itemize}
+\item the time derivative:
+  \begin{align*}
+    \ddtA{\dens \tEner} = 
+    \ddtA{\dens \roenergy} + 
+    \ddtA{} \dens \fVelV \cdot \aVelV  =
+    \ddtR{\dens \roenergy} - 
+    \underline{\fVelV \grad \dens \roenergy} + 
+    \underline{\fVelV \cdot \ddtA{\dens \aVelV}} + 
+    \dens \aVelV \ddtA{\fVelV} 
+  \end{align*}
+\item the enthalpy transport term:
+  \begin{align*}
+    \dive \dens \tEnth \aVelV 
+    = 
+    \dive \left(\dens \rothalpy + \dens\fVelV \cdot \aVelV\right) \aVelV 
+    = 
+    \dive \dens \rothalpy \rVelV +
+    \underline{\fVelV \grad \dens \rothalpy} + 
+    \underline{\fVelV \cdot \dive \dens \aVelV \aVelV} + 
+    \dens \aVelV \aVelV : \grad \fVelV
+  \end{align*}
+  where the last term is zero since it is the internal product between
+  a symmetric and an asymmetric tensor $\dens \aVelV \aVelV$
+  resp. $\grad \fVelV$
+\item Finally the shear stress work term transforms to 
+  \begin{align*}
+    \dive \shearStressT \cdot \aVelV &= 
+    \dive \shearStressT \cdot \rVelV
+    + \underline{\fVelV \cdot \dive \shearStressT}
+  \end{align*}
+\end{itemize}
+Since since $\dens \rothalpy - \dens \roenergy = \pres$ the underlined terms
+sum furthermore up to
+\begin{align*}
+  \fVelV \cdot \left(\ddtA{\dens \aVelV} + 
+    \dive \dens \aVelV \aVelV
+    + \grad p - \dive \shearStressT\right) = 0
+\end{align*}
+This leaves us with the equation 
+\begin{equation}
+  \ddtR{\dens \roenergy}  + 
+  \dive \dens \rothalpy \rVelV + 
+  \dens \aVelV \ddtA{\fVelV} 
+  = 
+  \dive \shearStressT \cdot \rVelV + 
+  \dive \heatFluxV
+\end{equation}
+in which we find the roles of total internal energy \tEner~and
+enthalpy \tEnth~are replaced by \roenergy~and \rothalpy; we
+furthermore notice the work term resulting from the acceleration of
+the frame. From now on, we will continue in frames with a steady
+motion.
+
+\subsection{Energy transfer, irreversibility and entropy}
+
+Projecting the momentum equation again on the relative velocity
+$\rVelV$, we find first that
+\begin{align*}
+  \rVelV \cdot \rotV \times \rotV \times \xyzV 
+  &= - \rVelV \cdot \rot^2 r \unitV{r} = - \rVel_r \rot^2 r = - \rot^2 r \ddtM{r} = \ddtM{\eRot}
+\end{align*}
+we find
+\begin{align*}
+   \ddtM{\eKin}  +  \ddtM{\eRot} +  \ddtM{\eGrav} &= 
+  \rVelV \cdot \frac{\grad p}{\dens} + 
+  \rVelV \cdot \frac{\dive \shearStressT}{\dens} \\
+  &= dW_{rev} + dW_{irr} 
+\end{align*}
+and therefore the mechanical energy is extended in much the same way
+as the internal energy and enthalpy. The centrifugal force introduces a
+potential, similar to gravity, which decreases with the distance to
+the rotation axis:
+\begin{align*}
+  \eMech = \frac{v^2}{2} - \frac{u^2}{2} + \grav z = \eKin + \eRot + \eGrav
+\end{align*}
+The equation for the entropy has exactly the same form in the relative
+frame:
+\begin{equation}
+  \ddt{\dens \entr} + \dive \dens \aVelV \entr = 
+  \frac{\shearStressT : \grad \rVelV}{\temp} + \frac{\dive \heatFluxV}{\temp} 
+  %=
+  %\frac{\shearStressT : \grad \aVelV}{\temp} + \frac{\dive \heatFluxV}{\temp}
+\end{equation}
+and since $\shearStressT : \grad \rVelV = \shearStressT : \grad
+\aVelV$\footnote{\shearStressT is symmetric, while $\grad \fVelV$ is
+  antisymmetric.}, we find as expected that entropy does not depend on
+the frame.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

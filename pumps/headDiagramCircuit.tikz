@@ -1,0 +1,80 @@
+\tikzsetnextfilename{headDiagramCircuit}
+\begin{tikzpicture}
+
+  \scriptsize
+  
+  \def\vU{6}
+  
+  \def\hA{25} %% reference manometric head (upstream reservoir)
+  \def\lAS{0.5*\vU}         %% losses A -> sump
+  \def\hS{\hA-\lAS}
+  \def\lSI{2*\vU}         %% losses sump -> inlet
+  \def\hI{\hS-\lSI}
+
+  \def\hp{80}         %% total dynamic head of the pump
+  
+  \def\hO{\hI+\hp}
+  
+  \def\vD{6}
+  \def\lOD{2*\vD}
+  \def\hD{\hO-\lOD}
+  \def\hB{\hD-\vD}
+  
+  \begin{axis}[
+    width = \textwidth,
+    height =0.4\textheight,
+    xtick = data,
+    xticklabels = {Reservoir a,Sump,Pump,Discharge,Reservoir b},
+    ytick = \empty,
+    axis lines = center,
+    xmin = 0,
+    xmax = 5,
+    ymin = 0,
+    ymax = 100,
+    % xlabel = $station$,
+    % ylabel = $\head$,
+    legend style   = {draw=none,anchor=west,at={(0.1,0.5)}},
+    legend entries = {total head,static head}
+    ],
+    \addplot [black,line width=1.5pt] coordinates {
+      (0.5,\hA) 
+      (1.5,\hS) 
+      (2.5,\hI) 
+      (2.5,\hO) 
+      (3.5,\hD) 
+      (4.5,\hD-\vD)};
+    \addplot [dashed,line width=1.5pt] coordinates {
+      (0.5,\hA) 
+      (1.5,\hS-\vU) 
+      (2.5,\hI-\vU) 
+      (2.5,\hO-\vD) 
+      (3.5,\hD-\vD) 
+      (4.5,\hB)};
+    
+    \addplot [dashed] coordinates {(0.5,0) (0.5,\hA)};
+    \addplot [dashed] coordinates {(1.5,0) (1.5,\hS)};
+    \addplot [dashed] coordinates {(2.5,0) (2.5,\hI)};
+    \addplot [dashed] coordinates {(2.5,0) (2.5,\hO)};
+    \addplot [dashed] coordinates {(3.5,0) (3.5,\hD)};
+    \addplot [dashed] coordinates {(4.5,0) (4.5,\hB)};
+    
+    \addplot [dashed] coordinates {(0,\hA) (4.6,\hA)}
+    node [pos=0.05,left,above]{$\head_a$};
+    \addplot [dashed] coordinates {(0,\hB) (4.6,\hB)}
+    node [pos=0.05,left,above]{$\head_b$};
+    
+    \addplot [dashed] coordinates {(2.4,\hI) (3,\hI)};
+    \addplot [dashed] coordinates {(2.4,\hO) (4.6,\hO)};
+    \addplot [<->,>=latex] 
+    coordinates {(2.9,\hI) (2.9,\hO)} 
+    node [midway,right] {$\dhead_p$};
+    \addplot [<->,>=latex] 
+    coordinates {(4.5,\hB) (4.5,\hO)} 
+    node [midway,left] {$\loss_{ob}$};
+    \addplot [<->,>=latex] 
+    coordinates {(2.5,\hA) (2.5,\hI)} 
+    node [midway,left] {$\loss_{ai}$};
+    
+  \end{axis}
+
+\end{tikzpicture}

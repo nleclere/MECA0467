@@ -1,0 +1,65 @@
+\tikzsetnextfilename{prewhirl}
+\begin{tikzpicture}[scale=0.8]
+
+  %\scriptsize
+
+  \def\a{30}
+  
+  \def\vrNom{6}
+  \def\wrNom{\vrNom}
+  \def\vrAct{4}
+  \def\wrAct{\vrAct}
+  \def\uTan{12}
+  
+  \def\vuNom{\vrNom*tan(\a)}
+  \def\vuAct{\vrAct*tan(\a)}
+  
+  \def\bNom{atan((\uTan-\vuNom)/\vrNom)}
+  \def\bAct{atan((\uTan-\vuAct)/\vrAct)}
+  
+
+  \coordinate(CNom) at (0,0); %% top
+  \coordinate(BNom) at ({\vuNom-\uTan},-\wrNom);       %% 
+  \coordinate(ANom) at ({\vuNom},-\wrNom);
+  \coordinate(DNom) at (0,-\wrNom);
+  
+  \draw[<->,>=latex,line width=1.5pt] 
+  (BNom) node [left] {$B$} --
+  (CNom) node [pos=0.1,left,above]{$\rVelV$} node [at end,above] {$C$} --
+  (DNom) node [pos=0.9,left]{$\rVel_m$}
+  pic["$\beta$", draw=black,color=black,<-, angle eccentricity=1.4, angle radius=1.4cm]
+  {angle=BNom--CNom--DNom};
+
+  \draw[->,>=latex,line width=1.5pt] 
+  (DNom) --
+  (CNom) node [pos=0.1,right]{$\aVel_m$}  --
+  (ANom) node [pos=0.9,right,above]{$\aVelV$} node [at end,right]{$A$}
+  pic["$\alpha$", draw=black,color=black,->, angle eccentricity=1.4, angle radius=1.6cm]
+  {angle=DNom--CNom--ANom};
+
+  \coordinate(BAct) at  ({-\vrAct*tan(\bNom)},-\wrAct);
+  \coordinate(BActp) at ({-\vrAct*tan(\bNom)},0);
+  
+  \coordinate(AAct) at ({-\vrAct*tan(\bNom)+\uTan},-\wrAct);
+  \coordinate(DAct) at (0,-\wrAct);
+  
+  \draw[<->,>=latex,color=red,line width=1.5pt] 
+  (BAct) node [left] {$B^\prime$} --
+  (CNom) node [pos=0.2,left,above]{$\rVelV^\prime$}  --
+  (DAct) node [pos=0.8,left]{$\rVel_m^\prime$};
+
+  \draw[->,>=latex,line width=1.5pt,color=red] 
+  (DAct) --
+  (CNom) node [pos=0.2,right]{$\aVel_m^\prime$}  --
+  (AAct) node [pos=0.8,right,above]{$\aVelV^\prime$} node [at end,right]{$A^\prime$}
+  pic["$\alpha^\prime$", draw=red,color=red,->, angle eccentricity=1.4, angle radius=0.8cm]
+  {angle=DAct--CNom--AAct};
+
+
+  \draw[->,>=latex,line width=1.5pt] 
+  (BNom) --(ANom) node [midway,above]{$\fVelV$};
+  \draw[->,>=latex,line width=1.5pt,color=red] 
+  (BAct) --(AAct) ;
+  \draw[dotted,line width=1pt] (AAct) -- (ANom){};
+  
+\end{tikzpicture}

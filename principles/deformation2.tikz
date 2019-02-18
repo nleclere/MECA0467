@@ -1,0 +1,51 @@
+\tikzsetnextfilename{deformation2}
+\begin{tikzpicture}
+
+  %\scriptsize
+  
+  \coordinate(p0) at (0,0);
+  \coordinate(p1) at (5,0);
+  \coordinate(p2) at (0,5);
+  \coordinate(p3) at (5,5);
+
+  \coordinate(dd0) at (6,3);
+  \coordinate(dd1) at ($(0,0)$);
+  \coordinate(dd2) at ($(3,0)$);
+  \coordinate(dd3) at ($(dd1)+(dd2)$);
+
+  \coordinate (pp0) at ($(p0)+(dd0)$);
+  \coordinate (pp1) at ($(p1)+(dd0)+(dd1)$);
+  \coordinate (pp2) at ($(p2)+(dd0)+(dd2)$);
+  \coordinate (pp3) at ($(p3)+(dd0)+(dd3)$);
+  \coordinate (pp4) at ($(pp0)+(0,5)$);
+  
+  \draw[dotted,line width=0.5pt] (p0) -- (pp0);
+  \draw[dotted,line width=0.5pt] (p1) -- (pp1);
+  \draw[dotted,line width=0.5pt] (p2) -- (pp2);
+  
+  \draw[dotted,line width=0.5pt] (pp0) -- (pp4);
+
+  
+  \draw[->,>=latex,line width=1.5pt] (p0) -- (p1) node [pos=0.8,below]
+  {$d\xyzV_1$};
+  \draw[->,>=latex,line width=1.5pt] (p0) -- (p2) node [pos=0.8,left]
+  {$d\xyzV_2$};
+  \draw[dashed,line width=0.5pt] (p1) -- (p3);
+  \draw[dashed,line width=0.5pt] (p2) -- (p3);
+    
+
+
+  %draw pic["$\frac{\pi}{2}$", draw=black,color=black,->, angle eccentricity=1.4, angle radius=1.6cm]{angle=p1--p0--p2};
+  
+  \draw[->,>=latex,line width=1.5pt] (pp0) -- (pp1) node [pos=0.8,above]
+  {$d\xyzV_1^\prime$};
+  \draw[->,>=latex,line width=1.5pt] (pp0) -- (pp2) node [pos=0.8,right]
+  {$d\xyzV_2^\prime$};
+  
+  \draw[dashed,line width=0.5pt] (pp1) -- (pp3);
+  \draw[dashed,line width=0.5pt] (pp2) -- (pp3);
+  \scriptsize
+  \draw pic["$d\phi_{12}$", draw=black,color=black,<-,>=latex, angle eccentricity=1.2,angle radius=2cm, line width = 0.5pt]{angle=pp2--pp0--pp4};
+
+    
+\end{tikzpicture}

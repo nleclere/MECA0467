@@ -1,0 +1,39 @@
+\begin{tikzpicture}[>=latex]
+
+% Draw the lines at multiples of pi/12
+% Concentric circles and radius labels
+
+\foreach \ang in {0,...,32} {
+  \draw [lightgray] 
+  (0      ,{-\ang*3.1415/16}) -- 
+  ({ln(4)*3},{-\ang*3.1415/16});
+}
+
+\foreach \s in {2, 3, 4, 5, 6, 7, 8} { 
+  \draw [lightgray] 
+  ({ln(\s/2)*3},0) -- 
+  ({ln(\s/2)*3},{-2*3.1415}); 
+}
+
+%%% define auxiliary constants
+
+\def\Ab{(\ta*4 - \tb)/3}
+\def\Bb{(\tb   - \ta)/3}
+
+\def\Ac{(\ta*4 - \tc)/3}
+\def\Bc{(\tc   - \ta)/3}
+
+%% neutral line
+
+\draw [line width=2pt,color=black,domain=1:4,samples=50,smooth] 
+ plot ({ln(\x)*3},{ln(\x)*\ta}) node [right] {A};
+
+%% first variation 
+\draw [line width=2pt,color=red,domain=1:4,samples=50,smooth] 
+plot ({ln(\x)*3},{(ln(\x)*\Ab + \Bb*(\x - 1))}) node [right] {B};
+
+%% second variation
+\draw [line width=2pt,color=blue,domain=1:4,samples=50,smooth] 
+plot ({ln(\x)*3},{(ln(\x)*\Ac + \Bc*(\x - 1))}) node [right] {C};
+
+\end{tikzpicture} 

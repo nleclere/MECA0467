@@ -1,0 +1,170 @@
+
+\tikzsetnextfilename{hydraulicCircuit}
+\begin{tikzpicture}
+
+  \scriptsize
+  
+  %% kinetic energy upstream & downstream
+  \def\vU{12}
+  \def\vD{4}
+  \def\hA{400}
+
+  %% dimensions
+
+  \def\lPipeSB{15}
+  \def\lPipeBE{10}
+  \def\lPipeEB{10}
+  \def\lPipeBV{10}
+  \def\lPipeVD{15}
+  
+  \def\posReservoirA{5}
+  \def\posIntake{\posReservoirA+10}
+  \def\posBendU{\posIntake + \lPipeSB}
+  \def\posExp{\posBendU + \lPipeBE}
+  \def\posBendD{\posExp + \lPipeEB}
+  \def\posValve{\posBendD + \lPipeBV}
+  \def\posDischarge{\posValve + \lPipeVD}
+  \def\posReservoirB{\posDischarge + 10}
+  
+  %% major losses
+  
+  \def\kPipe{0.2}
+  \def\lossPipeSB{\kPipe*\lPipeSB*\vU}
+  \def\lossPipeBE{\kPipe*\lPipeBE*\vU}
+  \def\lossPipeEB{\kPipe*\lPipeEB*\vD}
+  \def\lossPipeBV{\kPipe*\lPipeBV*\vD}
+  \def\lossPipeVD{\kPipe*\lPipeVD*\vD}
+  
+  %% minor losses
+  
+  \def\kBend{0.75}
+  \def\kSump{0.025}
+  \def\kValve{6}
+  \def\kDischarge{1}
+  \def\kExp{1}
+  
+  \def\lossSump{\kSump*\vU}
+  \def\lossBendU{\kBend*\vU}
+  \def\lossExp{\kExp*\vU}
+  \def\lossBendD{\kBend*\vD}
+  \def\lossValve{\kValve*\vD}
+  \def\lossDischarge{\kDischarge*\vD}
+
+  %% positions in the head diagram
+
+  \def\hSumpP{\hA}
+  \def\hSumpM{\hSumpP - \lossSump}
+  
+  \def\hBendUP{\hSumpM - \lossPipeSB}
+  \def\hBendUM{\hBendUP - \lossBendU}
+  
+  \def\hExpP{\hBendUM - \lossPipeBE}
+  \def\hExpM{\hExpP - \lossExp}
+  
+  \def\hBendDP{\hExpM - \lossPipeEB}
+  \def\hBendDM{\hBendDP - \lossBendD}
+  
+  \def\hValveP{\hBendDM - \lossPipeBV}
+  \def\hValveM{\hValveP - \lossValve}
+
+  \def\hDischargeP{\hValveM - \lossPipeVD}
+  \def\hB{\hDischargeP - \vD}
+
+  \def\hOffset{\hA - \hB}
+  
+  \begin{axis}[
+    width = \textwidth, 
+    height =0.3\textheight, 
+    xtick = data, 
+    xticklabels = {
+      a, 
+      Intake, 
+      Bend,
+      Expansion, 
+      Bend,
+      Valve, 
+      Discharge, 
+      b}, 
+    ytick = \empty,
+    axis lines = center, 
+    xmin = 0, xmax = \posReservoirB+5, 
+    ymin = \hB+\hOffset, ymax = \hA+\hOffset+40,
+    xlabel = station,
+    ylabel = $\head$,
+    legend style   = {draw=none,anchor=west,at={(0.05,0.5)}},
+    legend entries = {total head,static head},
+    mark size = 1pt
+    ],
+    \addplot [mark=o,mark options={solid},black,line width=1pt] coordinates {
+      (\posReservoirA,\hOffset + 20 +\hA)
+      (\posIntake,\hOffset + 20 +\hSumpP) 
+      (\posIntake,\hOffset + 20 +\hSumpM)
+      (\posBendU,\hOffset + 20 +\hBendUP) 
+      (\posBendU,\hOffset + 20 +\hBendUM) 
+      (\posExp,\hOffset + 20 +\hExpP) 
+      (\posExp,\hOffset + 20 +\hExpM) 
+      (\posBendD,\hOffset + 20 +\hBendDP) 
+      (\posBendD,\hOffset + 20 +\hBendDM) 
+      (\posValve,\hOffset + 20 +\hValveP) 
+      (\posValve,\hOffset + 20 +\hValveM) 
+      (\posDischarge,\hOffset + 20 +\hDischargeP) 
+      (\posReservoirB,\hOffset + 20 +\hB) 
+    };
+    
+    \addplot [mark=o,mark options={solid},dashed,line width=1pt] coordinates {
+      (\posReservoirA,\hOffset + 20 +\hA)
+      (\posIntake,\hOffset + 20 +\hSumpP-\vU) 
+      (\posIntake,\hOffset + 20 +\hSumpM-\vU)
+      (\posBendU,\hOffset + 20 +\hBendUP-\vU) 
+      (\posBendU,\hOffset + 20 +\hBendUM-\vU) 
+      (\posExp,\hOffset + 20 +\hExpP-\vU) 
+      (\posExp,\hOffset + 20 +\hExpM-\vD) 
+      (\posBendD,\hOffset + 20 +\hBendDP-\vD) 
+      (\posBendD,\hOffset + 20 +\hBendDM-\vD) 
+      (\posValve,\hOffset + 20 +\hValveP-\vD) 
+      (\posValve,\hOffset + 20 +\hValveM-\vD) 
+      (\posDischarge,\hOffset + 20 +\hDischargeP-\vD) 
+      (\posReservoirB,\hOffset + 20 +\hB) 
+    };
+    
+    \addplot [dashed] coordinates {(0,\hOffset + 20 +\hA) (\posReservoirB,\hOffset + 20 +\hA)};
+    \addplot [dashed] coordinates {(0,\hOffset + 20 +\hB) (\posReservoirB,\hOffset + 20 +\hB)};
+    
+    
+    \addplot [dashed] coordinates {(\posReservoirA,\hOffset+\hB) (\posReservoirA,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posReservoirB,\hOffset+\hB) (\posReservoirB,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posBendU,\hOffset+\hB) (\posBendU,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posBendD,\hOffset+\hB) (\posBendD,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posExp,\hOffset+\hB) (\posExp,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posValve,\hOffset+\hB) (\posValve,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posDischarge,\hOffset+\hB) (\posDischarge,\hOffset+20+\hA)};
+    \addplot [dashed] coordinates {(\posIntake,\hOffset+\hB) (\posIntake,\hOffset+20+\hA)};
+    
+    
+
+    %\addplot [dashed] coordinates {(1.5,0) (1.5,\hS)};
+    %\addplot [dashed] coordinates {(2.5,0) (2.5,\hI)};
+    %\addplot [dashed] coordinates {(3.5,0) (3.5,\hO)};
+    %\addplot [dashed] coordinates {(4.5,0) (4.5,\hD)};
+    %\addplot [dashed] coordinates {(5.5,0) (5.5,\hB)};
+    
+    %\addplot [dashed] coordinates {(0,\hA) (5.6,\hA)}
+    %node [pos=0.05,left,above]{$\head_a$};
+    %\addplot [dashed] coordinates {(0,\hB) (5.6,\hB)}
+    %node [pos=0.05,left,above]{$\head_b$};
+    
+    %\addplot [dashed] coordinates {(2.4,\hI) (4,\hI)};
+    %\addplot [dashed] coordinates {(3.4,\hO) (5.6,\hO)};
+    %\addplot [<->,>=latex] 
+    %coordinates {(3.9,\hI) (3.9,\hO)} 
+    %node [midway,right] {$\head_p$};
+    %\addplot [<->,>=latex] 
+    %coordinates {(5.5,\hB) (5.5,\hO)} 
+    %node [midway,left] {$\loss_{ob}$};
+    %\addplot [<->,>=latex] 
+    %coordinates {(2.5,\hA) (2.5,\hI)} 
+    %node [midway,left] {$\loss_{ai}$};
+    
+  \end{axis}
+
+\end{tikzpicture}

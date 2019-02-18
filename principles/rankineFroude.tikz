@@ -1,0 +1,50 @@
+
+\tikzsetnextfilename{rankineFroude}
+\begin{tikzpicture}
+
+\def\vUp{1.};
+\def\vDown{15.};
+\def\vDisk{8.};
+
+\def\len{10*\vDown};
+\def\llen{5*\vDown};
+\def\aUp{\vDown};
+\def\aDown{\aUp*sqrt(\vUp/\vDown)};
+\def\aDisk{\aUp*sqrt(\vUp/\vDisk)};
+
+\coordinate(BUp) at (0,-\aUp);
+\coordinate(TUp) at (0,\aUp);
+
+\coordinate(BDisk) at (\llen,{-\aDisk});
+\coordinate(TDisk) at (\llen,{\aDisk});
+
+\coordinate(BDown) at (\len,{-\aDown});
+\coordinate(TDown) at (\len,{\aDown});
+
+\coordinate(SW) at (0,{-3*\aUp});
+\coordinate(NW) at (0,{3*\aUp});
+\coordinate(NE) at (\len,{3*\aUp});
+\coordinate(SE) at (\len,{-3*\aUp});
+
+
+\draw[dashed] (SW) -- (NW);
+\draw[dashed] (NW) -- (NE);
+\draw[dashed] (NE) -- (SE);
+\draw[dashed] (SE) -- (SW);
+
+\draw[smooth] (BUp) -- (BDisk) -- (BDown);
+\draw[] (TUp) -- (TDisk) -- (TDown);
+
+\draw[line width=1.5pt] (TUp) -- (BUp) node [below left] {1};
+\draw[line width=2.5pt] (TDisk) -- (BDisk) node [below left] {2};
+\draw[line width=1.5pt] (TDown) -- (BDown) node [below left] {3};
+
+\addplot[smooth] coordinates { BUpc   BDiskc  BDownc};
+
+
+
+
+
+
+
+\end{tikzpicture}

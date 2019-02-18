@@ -1,0 +1,186 @@
+\documentclass[12pt]{report}
+
+\usepackage{etoolbox}
+\newtoggle{COMPLETE}
+\toggletrue{COMPLETE}
+
+
+%% -- geometry
+
+\usepackage[margin=65pt]{geometry}
+\setcounter{tocdepth}{1}
+\usepackage{wrapfig}
+\usepackage{float}
+% \setlength{\parindent}{0cm} % Default is 15pt.
+
+
+%% -- figures 
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{tikzscale}
+\usepackage{tikz-3dplot}
+
+\usetikzlibrary{calc,quotes,angles}
+\usetikzlibrary{external}
+%\tikzexternalize[prefix=tikzFigures/]
+
+\usepackage{graphicx}
+\graphicspath{{.}{./figures/}}
+
+%% -- subfigure
+
+\usepackage{subcaption}
+
+%% -- numbering
+
+\usepackage{enumitem}
+\usepackage{etoolbox}
+
+%% -- references
+
+\usepackage{nameref}
+\newcommand{\fullref}[1]{\ref{#1} \nameref{#1}}
+
+%% -- local definitions
+
+\usepackage{definitions}
+
+%%% title 
+
+\title{MECA0467 - Turbomachines}
+\author{Koen Hillewaert}
+\date{Academic year 2018-2019}
+
+%%% 
+
+%%% ----------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+%%% ----------------------------------------------------------------------------
+\chapter{Introduction}
+%%% ----------------------------------------------------------------------------
+\input introduction/introduction.tex
+
+
+%%% ----------------------------------------------------------------------------
+\chapter{Fluid mechanics and turbomachinery}
+\label{chap:principles}
+%%% week 1 -- 7/2
+%%% ----------------------------------------------------------------------------
+
+This section recapitulates the main concepts from fluid mechanics in a
+general setting, and subsequenty provides alternative formulations in
+order to apply them to the study of flows in turbomachinery passages.
+
+\input principles/continuumMechanics.tex
+\clearpage
+\input principles/navierStokes.tex
+\clearpage
+\input principles/energy.tex
+\clearpage
+\input principles/relativeFrame.tex
+\clearpage
+\input principles/turbomachinery.tex
+\clearpage
+\input principles/similarity.tex
+
+\clearpage
+\input principles/exercises.tex
+
+
+%%% ----------------------------------------------------------------------------
+\chapter{Hydrodynamics}
+\label{chap:hydrodynamics}
+%%% week 2 14/2
+%%% ----------------------------------------------------------------------------
+
+\input hydrodynamics/bernoulli.tex
+\clearpage
+\input hydrodynamics/turbomachinery.tex
+
+% \iftoggle{COMPLETE}{
+  \clearpage
+  \input hydrodynamics/circuits.tex
+  \clearpage
+  \input hydrodynamics/cavitation.tex
+% }
+\clearpage
+\input hydrodynamics/exercises.tex
+
+% \iftoggle{COMPLETE}{
+%%% ----------------------------------------------------------------------------
+\chapter{Pumps, ventilators and fans}
+\label{chap:pumps}
+%% week 3 & 4  --- 21 & 28/2
+%%% ----------------------------------------------------------------------------
+
+\input pumps/exterior.tex
+\input pumps/interior.tex
+\input pumps/losses.tex
+\input pumps/characteristic.tex
+
+% %%% ----------------------------------------------------------------------------
+% \chapter{Hydraulic turbines}
+% \label{chap:hydraulicTurbines}
+%% week 5 -- 7/3
+% %%% ----------------------------------------------------------------------------
+
+% %%% ----------------------------------------------------------------------------
+% \chapter{Wind turbines}
+% \label{chap:windTurbines}
+%% week 6 -- 13/3
+% %%% ----------------------------------------------------------------------------
+
+% %%% ----------------------------------------------------------------------------
+% \chapter{Compressible flow and thermodynamics}
+% \label{chap:compressible}
+%% week 7 & 8 -- 20/3 & 27/3
+% %%% ----------------------------------------------------------------------------
+
+% %%% ----------------------------------------------------------------------------
+% \chapter{Gas compressors}
+% \label{chap:compressors}
+%% week 9-10 -- 3/4 & 10/4
+% %%% ----------------------------------------------------------------------------
+
+% %%% ----------------------------------------------------------------------------
+% \chapter{Gas and steam turbines}
+% \label{chap:turbines}
+%% week 10-11 -- 17/4 & 24/4
+% %%% ----------------------------------------------------------------------------
+
+%%% visit to the VKI
+%%% 12 -- 2/5
+
+%%% remediation -- 9/5
+%%% 13
+
+%%% remediation -- 16/5
+%%% 14
+
+%%% examen -- 23/5 
+%%% 15
+% }
+
+\clearpage
+
+\bibliographystyle{unsrt}
+\bibliography{MECA0467,pumps/pumps.bib}
+
+\clearpage 
+
+%\iftoggle{COMPLETE}{
+  \chapter{Answers to exercises}
+  
+  \section{Chapter \fullref{chap:principles}}
+  \input principles/answers.tex
+  \section{Chapter \fullref{chap:hydrodynamics}}
+  \input hydrodynamics/answers.tex
+% }
+\end{document}

@@ -1,0 +1,57 @@
+\newcommand{\velocityTriangle}[2]{
+
+    \def\vrNom{2}
+    \def\vrOff{4}
+    \def\u{5};
+    \def\metal{#1};
+    \def\origin{#2};
+    \def\increase{2};
+    
+    \coordinate(C) at (\origin,0);
+    \coordinate(uVel) at (0,\u);
+    
+    \coordinate(vrNom) at (\vrNom,0);
+    \coordinate(wNom)  at (\vrNom,{\vrNom*tan(\metal)});
+    \coordinate(vNom)  at (\vrNom,{\vrNom*tan(\metal)+\u});
+
+    \coordinate(BNom) at ($(C) + (wNom)$);
+    \coordinate(ANom) at ($(BNom) + (uVel)$);
+    \coordinate(DNom) at ($(C) + (vrNom)$);
+    
+    \draw[->,>=latex,line width=1] (C)    -- ++(vrNom) node[midway,below]{}; %  {$v_r$};
+    \draw[->,>=latex,line width=1] (C)    -- ++(wNom) node[midway,above]{$\rVelV$};
+    \draw[->,>=latex,line width=1] (C)    -- ++(vNom) node[midway,left]{$\aVelV$};
+    \draw[->,>=latex,line width=1] (BNom) -- ++(uVel) node[pos=0.3,right]{$\fVelV$};
+
+    \coordinate(vrOff) at (\vrOff,0);
+    \coordinate(wOff)  at (\vrOff,{\vrOff*tan(\metal)});
+    \coordinate(vOff)  at (\vrOff,{\vrOff*tan(\metal)+\u});
+
+    \coordinate(BOff) at ($(C) + (wOff)$);
+    \coordinate(AOff) at ($(BOff) + (uVel)$);
+    \coordinate(DOff) at ($(C) + (vrOff)$);
+    
+    \draw[->,>=latex,line width=1,color=red] (C) -- ++(vrOff) 
+    node[pos=0.8,below]{}; % {$v_r^\prime$};
+    \draw[->,>=latex,line width=1,color=red] (C) -- ++(wOff) 
+    node[pos=0.8,above]{$\rVelV^\prime$};
+    \draw[->,>=latex,line width=1,color=red] (C) -- ++(vOff) 
+    node[pos=0.8,left]{$\aVelV^\prime$};
+    \draw[->,>=latex,line width=1,color=red] (BOff) -- ++(uVel) 
+    node[pos=0.3,right]{$\fVelV^\prime$};
+
+
+    \draw pic["$\beta_2$", draw=black,color=black,<-,angle eccentricity=1.4,angle radius=0.6cm]
+    {angle=BNom--C--DNom};
+  }
+
+
+
+\tikzsetnextfilename{characteristicSlope2}
+\begin{tikzpicture}
+  
+  \velocityTriangle{-20}{0};
+  \velocityTriangle{0}{6};
+  \velocityTriangle{20}{12};
+
+\end{tikzpicture}

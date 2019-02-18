@@ -1,0 +1,49 @@
+\tikzsetnextfilename{frame}
+\begin{tikzpicture}
+
+  \def\aa{15}
+  \def\ca{cos(\aa)}
+  \def\sa{sin(\aa)}
+  \def\axis{6}
+
+  \coordinate(rvel) at (1,4);
+  
+  \coordinate(Cn) at (0,0);
+  \coordinate(DXn) at (\axis,0);
+  \coordinate(DYn) at (0,\axis);
+  
+  \def\xp{1.5}
+  \def\yp{1}
+  \def\ddx{\xp*\ca-\yp*\sa}
+  \def\ddy{\xp*\sa+\yp*\ca}
+  \coordinate(Pn) at (\xp,\yp);
+  \node at (Pn) [left]{$P$};
+  \node at (Pn) [circle,fill,inner sep=1.5pt]{};
+  \coordinate(DP) at ({\ddx},{\ddy});
+  
+  \coordinate(Cp) at (7,2);
+  \coordinate(Pp) at ($(Cp)+(DP)$);
+  \node at (Pp) [right]{$P^\prime$};
+  \node at (Pp) [circle,fill,inner sep=1.5pt]{};
+  \coordinate(Ppp) at ($(Pp)+(rvel)$);
+  \node at (Ppp) [right]{$P^{\prime \prime}$};
+  \node at (Ppp) [circle,fill,inner sep=1.5pt]{};
+  \coordinate(DXp) at ({\axis*\ca},{\axis*\sa});
+  \coordinate(DYp) at ({\axis*-\sa},{\axis*\ca});
+  
+  %\node at (Cn) [circle,fill,inner sep=0.5pt]{};
+  \draw[->,>=latex,line width=0.5pt](Cn)  -- ($(Cn)+(DXn)$) node[at end,below]{$x$};
+  \draw[->,>=latex,line width=0.5pt](Cn) -- ($(Cn)+(DYn)$) node[at end,left]{$y$};
+  
+  
+  %\node at (Cp) [circle,fill,inner sep=0.5pt]{};
+  \draw[->,>=latex,line width=0.5pt](Cp) -- ($(Cp)+(DXp)$) node[at end,below,sloped]{$x^\prime$};
+  \draw[->,>=latex,line width=0.5pt](Cp) -- ($(Cp)+(DYp)$) node[at end, left,sloped,rotate=90]{$y^\prime$};
+
+  
+  %\scriptsize
+  \draw[dashed,->,>=latex,line width=0.5pt] (Pn) -- (Pp)  node [midway,above,sloped]{$\fVelV dt$};
+  \draw[dashed,->,>=latex,line width=0.5pt] (Pp) -- (Ppp) node [midway,above,sloped]{$\rVelV dt$};
+  \draw[dashed,->,>=latex,line width=0.5pt] (Pn) -- (Ppp) node [midway,above,sloped]{$\aVelV dt$};
+  
+\end{tikzpicture}

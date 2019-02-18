@@ -1,0 +1,132 @@
+\section{Governing equations}
+\label{sec:hydraulics:governing}
+
+We first specialize the governing equations to constant-density flows,
+such as encountered in hydraulics or very low-speed gas flows. The
+Navier-Stokes equations in the relative frame reduce to:
+\begin{align*}
+  \dive \aVelV &= 0 \\
+  \ddt{\aVelV} 
+  + \dive \aVelV \aVelV 
+  + \frac{\grad \pres}{\dens}  &= 
+  \frac{\dive \shearStressT}{\dens} \\
+  \ddt{\tEner} 
+  + \dive \aVelV \tEnth 
+  &= \aVelV \cdot \frac{\dive \shearStressT}{\dens} 
+  + \frac{\dive \heatFluxV}{\dens}
+\end{align*}
+
+\subsection{Bernoulli's equation}
+
+Starting from \ref{eq:bernoulli2}, we find that Bernoulli's equation
+for incompressible flow
+\begin{align*}
+  d \left(\frac{\vel^2}{2} + \grav z + \frac{\pres}{\dens} \right) &=
+  d\xyzV \cdot \frac{\dive \shearStressT}{\dens}
+\end{align*}
+indicates that in the absence of viscous work, the sum of mechanical
+energy and (reduced) pressure is conserved along a streamline. This
+sum is defined up to a constant, and therefore, we can choose a
+convenient reference pressure $\pres^\ast$ and height $z^\ast$ to
+define the hydraulic energy
+\begin{align*}
+  \eHydr = \frac{\pres - \pres^\ast}{\dens} + \frac{\vel^2}{2} + \grav
+  \left(z - z^\ast\right)
+\end{align*}
+For hydraulic engineering, gravity potential differences are important
+with respect to pressure and dynamic effects. In this case we use the
+\emph{total head} or equivalent \emph{liquid column height}
+\begin{align}
+  \head = \frac{\pres - \pres^\ast}{\dens \grav} + \frac{\vel^2}{2
+    \grav} + \left(z - z^\ast\right)
+  \label{eq:hydraulicEnergy}
+\end{align}
+%We refer to the section \ref{sec:hydraulicCircuits} on hydraulics.
+Within the turbomachine, due to the important dynamic effects and
+relatively small distances, we can neglect differences in gravity
+potential. In this case typically the \emph{total} or \emph{stagnation
+  pressure} is used, defined as:
+\begin{align*}
+  \sPres{} = \pres - \pres^\ast + \frac{1}{2} \dens \vel^2
+\end{align*}
+
+\subsection{Irreversibility} 
+
+Due to incompressibility the conservation equation for kinetic energy
+\ref{eq:conservationKineticEnergy} can be manipulated to a
+conservation equation for the specific total hydraulic energy:
+\begin{equation}
+  \ddt{\eKin}  + 
+  \dive \aVelV \eHydr =
+  \dive \shearStressT \cdot \aVelV - \shearStressT : \grad \aVelV 
+  \label{eq:conservationHydraulicEnergy}
+\end{equation}
+which indicates that in the absence of friction the flux of hydraulic
+energy is conserved. Indeed, assuming a steady volumetric flow
+\vFlow~in a device, we find the following balances for the average
+hydraulic energy between inlet (1) and outlet (2) by integrating the
+above equations on the volume $\vol$:
+\begin{align*}
+  \vFlow \left(\left(\overline{\eHydr}\right)_2 - \left(\overline{\eHydr}\right)_1\right) &
+  = - \int_\vol \shearStressT : \grad \aVelV~dV 
+\end{align*}
+Hereby we assume that the viscous stress performs no (notable) work on
+in- and outlet and no heat was transferred across the walls.  The
+equation \ref{eq:conservationInternalEnergy} for the internal energy
+\ener~simplifies to
+\begin{equation}
+  \ddt{\ener} + \dive \aVelV \ener = 
+  \shearStressT : \grad \aVelV + \dive \heatFluxV 
+\end{equation}\\
+we find the following balance for the internal energy
+\begin{align*}
+  \vFlow \left(\overline{\ener_2} - \overline{\ener_1}\right) &
+  = \int_\vol \shearStressT : \grad \aVelV~dV 
+\end{align*}
+We see that the average loss of hydraulic energy directly translates
+in the increase of thermal energy. In fact, losses of total hydraulic
+energy can directly be measured by the temperature increase between
+in- and outlet:
+\begin{align*}
+  \heatCapV \Delta \overline{\temp} = - \Delta \overline{\eHydr}
+\end{align*}
+
+\subsection{Enthalpy and entropy}
+
+The enthalpy for an incompressible fluid is defined up to a constant:
+\begin{align*}
+  \enth = \heatCapV \left(\temp - \temp^\ast\right) + \frac{\pres - \pres^\ast}{\dens} 
+\end{align*}
+The entropy is only determined by temperature
+\begin{align*}
+  \temp d \entr = d \ener &\Rightarrow 
+  \entr - \entr^\ast = \heatCapV \ln \left(\frac{T}{T^\ast}\right) \\
+  &\Rightarrow T = T^\ast e^{\frac{\entr-\entr^\ast}{\heatCapV}}
+\end{align*} 
+while the pressure is given by an exponential relationship between
+$\enth$ and $\entr$:
+\begin{align*}
+  \left(\enth\right)_{p} = \frac{\pres - \pres^\ast}{\dens} + T^\ast e^{\frac{\entr-\entr^\ast}{C_v}}
+\end{align*}
+These two relations can be used to construct the Mollier $\enth-\entr$
+diagram, used for evaluating the efficiency of flow processes in
+particular within turbomachinery. 
+
+\subsection{Formulation in a moving frame of reference}
+
+All of the above equations can be easily extended to their relative
+form by adding the coriolis and centrifugal force in the momentum
+equations and generalizing the hydraulic energy to
+\begin{align*}
+  \eHydr^R = 
+  \frac{\rVel^2}{2} - 
+  \frac{\fVel^2}{2} + 
+  \frac{\pres - \pres^\ast}{\dens} + 
+  \grav \left(z-z^\ast\right)
+\end{align*}
+This is left as an exercise.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

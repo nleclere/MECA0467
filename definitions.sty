@@ -1,0 +1,217 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[citecolor=black,linkcolor=black,colorlinks=true]{hyperref}
+
+%% --- abbreviations -----------------------------------------------------------
+
+\newcommand{\ie}{\emph{i.e.}~}
+\newcommand{\eg}{\emph{e.g.}~}
+\newcommand{\etal}{\emph{et~al.}~}
+
+\newcommand{\leonard}{Reproduced from L{\'e}onard \cite{LeonardULg}}
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+%% --- time derivatives --------------------------------------------------------
+
+\newcommand{\dd}[2]{\ensuremath{\frac{\partial #1}{\partial #2}}}
+
+\newcommand{\ddt}[1]{\dd{#1}{t}}    %% local
+\newcommand{\ddtP}[1]{\dd{#1}{t^\prime}}    %% local
+\newcommand{\ddtM}[1]{\ensuremath{\frac{d#1}{dt}}}                   %% material
+\newcommand{\ddtA}[1]{\ensuremath{\frac{\partial^A #1}{\partial t}}} %% local, absolute
+\newcommand{\ddtR}[1]{\ensuremath{\frac{\partial^R #1}{\partial t}}} %% local, relative
+
+\newcommand{\dive}[1]{\ensuremath{\nabla \cdot #1}}
+\newcommand{\grad}[1]{\ensuremath{\nabla #1}}
+\newcommand{\curl}[1]{\ensuremath{\nabla \times #1}}
+
+\newcommand{\diveP}[1]{\ensuremath{\nabla^\prime \cdot #1}}
+\newcommand{\gradP}[1]{\ensuremath{\nabla^\prime #1}}
+\newcommand{\curlP}[1]{\ensuremath{\nabla^\prime \times #1}}
+
+%% --- gravity -----------------------------------------------------------------
+
+\newcommand{\grav}{\ensuremath{g}}
+\newcommand{\gravV}{\ensuremath{\boldsymbol {\grav}}}
+
+%% --- control volumes ---------------------------------------------------------
+
+\newcommand{\vol}{\ensuremath{\Omega}}              %% control volume
+\newcommand{\srf}{\ensuremath{{\partial \Omega}}}     %% control volume contour
+\newcommand{\nrm}{\ensuremath{n}}
+\newcommand{\nrmV}{\ensuremath{\boldsymbol {\nrm}}}   %% normal
+
+%% --- coordinates and unit vectors --------------------------------------------
+
+\newcommand{\xyz}{\ensuremath{r}}                   %% coordinate
+\newcommand{\rad}{\ensuremath{r}}
+\newcommand{\xyzV}{\ensuremath{\boldsymbol \xyz}}   %% coordinate vector
+\newcommand{\radius}{\ensuremath{r}} %% radius
+\newcommand{\unitV}[1]{\ensuremath{\boldsymbol e_{#1}}} %% unit vector
+\newcommand{\identityT}{\ensuremath{\boldsymbol {\mathcal I}}}
+
+%% --- velocities --------------------------------------------------------------
+
+\newcommand{\aVel}{\ensuremath{v}}                  %% absolute velocity component
+\newcommand{\aVelV}{\ensuremath{\boldsymbol {\aVel}}} %% absolute velocity 
+
+\newcommand{\vel}{\aVel}                  %% absolute velocity component
+\newcommand{\velV}{\aVelV} %% absolute velocity 
+
+\newcommand{\rVel}{\ensuremath{w}}                  %% relative velocity component
+\newcommand{\rVelV}{\ensuremath{\boldsymbol {\rVel}}} %% relative velocity
+
+\newcommand{\fVel}{\ensuremath{u}}                  %% frame velocity component
+\newcommand{\fVelV}{\ensuremath{\boldsymbol {\fVel}}} %% frame velocity 
+
+\newcommand{\rot}{\ensuremath{\Omega}}              %% rotational speed component
+\newcommand{\rotV}{\ensuremath{\boldsymbol {\rot}}}   %% rotational speed
+\newcommand{\vort}{\ensuremath{\omega}}
+\newcommand{\vortV}{\boldsymbol{\vort}}
+
+\newcommand{\force}{\ensuremath{f}}
+\newcommand{\forceV}{\ensuremath{\boldsymbol \force}}
+
+\newcommand{\momentum}{\ensuremath{m}}
+\newcommand{\momentumV}{\ensuremath{\boldsymbol{\momentum}}}
+
+%% --- stresses ----------------------------------------------------------------
+
+\newcommand{\pres}{\ensuremath{p}}    %% pressure
+\newcommand{\sPres}[1]{\ensuremath{p_{0#1}}}
+\newcommand{\tPres}{\ensuremath{p_0}}
+\newcommand{\dens}{\ensuremath{\rho}} %% density
+\newcommand{\sVol}{\ensuremath{V}}    %% specific volume
+\newcommand{\temp}{\ensuremath{T}}    %% temperature
+\newcommand{\sTemp}[1]{\ensuremath{T_{0#1}}}
+\newcommand{\entr}{\ensuremath{s}}    %% entropy
+\newcommand{\ener}{\ensuremath{e}}    %% internal energy
+\newcommand{\tEner}{\ensuremath{E}}   %% total internal energy
+\newcommand{\enth}{\ensuremath{h}}    %% enthalpy
+\newcommand{\tEnth}{\ensuremath{H}}   %% total enthalpy
+\newcommand{\sEnth}[1]{\ensuremath{\enth_{0#1}}}
+\newcommand{\energy}{\ensuremath{\mathcal E}}
+\newcommand{\eKin}{\ensuremath{\energy_k}} %% kinetic energy
+\newcommand{\eGrav}{\ensuremath{\energy_g}} %% gravity potential
+\newcommand{\eRot}{\ensuremath{\energy_{\rot}}}
+\newcommand{\eMech}{\ensuremath{\energy_m}} %% kinetic energy
+\newcommand{\eHydr}{\ensuremath{\energy_h}} %% hydraulic energy
+
+
+\newcommand{\roenergy}{\ensuremath{R}}  %% roenergy
+\newcommand{\rothalpy}{\ensuremath{I}}    %% rothalpy
+\newcommand{\mechEner}{\ensuremath{E}}
+\newcommand{\mechEnerR}{\ensuremath{U}}
+
+\newcommand{\gasConst}{\ensuremath{\mathcal R}}    %% gas constant
+\newcommand{\heatCapP}{\ensuremath{\mathcal C_p}}  %% heat capacity constant pressure
+\newcommand{\heatCapV}{\ensuremath{\mathcal C_v}}  %% heat capacity constant volume
+
+\newcommand{\stress}{\ensuremath{\sigma}}               %% total stress tensor, component
+\newcommand{\stressT}{\ensuremath{\boldsymbol \stress}} %% total stress tensor
+\newcommand{\shearStress}{\ensuremath{\tau}}            %% shear stress tensor, component 
+\newcommand{\shearStressT}{\ensuremath{\boldsymbol \shearStress}} %% shear stress tensor
+
+\newcommand{\shearRate}{\ensuremath {\boldsymbol {\mathcal S}}}
+\newcommand{\shearRateT}{\ensuremath {\boldsymbol \shearRate}}
+\newcommand{\rotRate}{\ensuremath \Omega}
+\newcommand{\rotRateT}{\ensuremath {\boldsymbol \rotRate}}
+
+\newcommand{\heatFlux}{\ensuremath{q}}                      %% heat flux, component
+\newcommand{\heatFluxV}{\ensuremath{\boldsymbol \heatFlux}} %% heat flux
+
+\newcommand{\dynVisc}{\ensuremath{\mu}}      %% dynamic viscosity
+\newcommand{\kinVisc}{\ensuremath{\nu}}      %% kinematic viscosity
+\newcommand{\bulkVisc}{\ensuremath{\lambda}} %% bulk viscosity
+\newcommand{\conduct}{\ensuremath{\kappa}}   %% heat conductivity
+
+%% --- airfoil
+
+\newcommand{\lift}{\ensuremath{L}}
+\newcommand{\drag}{\ensuremath{D}}
+
+%% --- hydraulic machinery
+
+\newcommand{\head}{\ensuremath{\mathcal H}}
+\newcommand{\dhead}{\ensuremath{\Delta \head}}
+\newcommand{\vFlow}{\ensuremath{\mathcal Q}}
+\newcommand{\loss}{\ensuremath{\xi}}
+
+%% --- flow machinery
+
+\newcommand{\mFlow}{\ensuremath{\dot m}}
+\newcommand{\power}{\ensuremath{\mathcal P}}
+\newcommand{\work}{\ensuremath{\mathcal W}}
+\newcommand{\torque}{\ensuremath{\mathcal M}}
+\newcommand{\reaction}{\ensuremath{R}}
+
+%% --- blade and cascade geometry
+
+\newcommand{\pitch}{\ensuremath{s}}
+\newcommand{\stagger}{\ensuremath{\lambda}}
+\newcommand{\chord}{\ensuremath{c}}
+\newcommand{\solidity}{\ensuremath{\sigma}}
+\newcommand{\camberAngle}{\ensuremath{\theta^\prime}}
+\newcommand{\bladeAngle}{\ensuremath{\alpha^\prime}}
+
+%% --- flow geometry 
+
+\newcommand{\aFlowAngle}{\ensuremath{\alpha}}
+\newcommand{\rFlowAngle}{\ensuremath{\beta}}
+\newcommand{\incidence}{\ensuremath{i}}
+\newcommand{\angleOfAttack}{\ensuremath{\gamma}}
+\newcommand{\deviation}{\ensuremath{\delta}}
+\newcommand{\deflection}{\ensuremath{\theta}}
+
+%% --- non-dimensional performance parameters
+
+\newcommand{\liftCoeff}{\ensuremath{C_\lift}}
+\newcommand{\dragCoeff}{\ensuremath{C_\drag}}
+\newcommand{\lossCoeff}{\ensuremath{\xi}}
+\newcommand{\flowCoeff}{\ensuremath{\phi}}
+\newcommand{\headCoeff}{\ensuremath{\psi}}
+\newcommand{\eff}{\ensuremath{\eta}}
+\newcommand{\specificSpeed}{\Omega_s}
+
+%% --- velocity triangles
+
+\newcommand{\vTriangleDim}[4]{
+  \includegraphics[width=#4]{
+      \def\vm{#1}
+      \def\vu{#2}
+      \def\u{#3}
+      \def\wu{\vu - \u}
+    \begin{tikzpicture}
+      % 
+      \def\aa{\arctan(\vu/\vm)}
+      \def\bb{\arctan(\wu/\vm)}
+      % 
+      \coordinate(B) at (\wu,0);
+      \coordinate(A) at (\vu,0);
+      \coordinate(C) at (0,\vm);
+      \coordinate(D) at (0,0);
+      % 
+      \draw[->,>=latex,line width=1.5pt,color=red] 
+      (C) -- (B) node [midway,sloped,above,color=red]{$\rVelV$};
+      % 
+      \draw[->,>=latex,line width=1.5pt] 
+      (C) -- (D) node [midway,left,color=red]{$\rVel_m$};
+      % 
+      \draw pic["$\beta$", draw=red,color=red, <-,>=latex, line
+      width=1pt, angle eccentricity=1.3, angle radius=1cm]
+      {angle=B--C--D} {};
+      % 
+      \draw[->,>=latex,line width=1.5pt,color=blue] 
+      (C) -- (A) node [midway,sloped,above,color=blue]{$\aVelV$};
+      % 
+      \draw[->,>=latex,line width=1.5pt]
+      (C) -- (D) node [midway,right,color=blue]{$\aVel_m$};
+      % 
+      \draw pic["$\alpha$", draw=blue,->,>=latex, line width=1pt, angle
+      eccentricity=1.3, angle radius=1cm,color=blue] {angle=D--C--A} {};
+      % 
+    \end{tikzpicture}
+  }
+}
+  

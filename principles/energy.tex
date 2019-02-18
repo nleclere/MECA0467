@@ -1,0 +1,165 @@
+\section{Energy distribution and irreversibility}
+
+In the following sections we manipulate the Navier-Stokes equations to
+analyse the conversion of different forms of energy into one
+another. Thereby we will use the following identity
+\begin{equation}
+  \begin{split}
+    \dens \ddtM{a} = \ddt{ \dens a} + \dive \rho \aVelV a
+  \end{split}
+  \label{eq:materialToConservative}
+\end{equation}
+which follows from the definition of the material derivative and the
+continuity equation \ref{eq:massConservationDifferential}.
+
+\subsection{Mechanical energy}
+
+In order to find an equation for the mechanical energy, we will
+premultiply the momentum equation, which expresses the balance of
+forces on a fluid particle, with the velocity. From the inertial and
+convection term, we find the material derivative of the specific
+kinetic energy $\eKin = \aVel^2/2$:
+\begin{align*}
+  \aVelV \cdot \left(\ddt{\rho \aVelV} + \rho \aVelV \aVelV \right)
+  &= 
+  \left(2 \eKin \ddt{\rho} + \rho \ddt{\eKin}  \right) + 
+  \left(2 \eKin \dive \rho \aVelV + \rho \aVelV \grad \eKin \right) \\
+  &= 
+  2 \eKin \underbrace{\left(\ddt{\rho} + \dive \rho \aVelV \right)}_{=0} + 
+  \left( \rho \ddt{\eKin} + \rho \aVelV \grad \eKin\right)\\
+  &= 
+  \rho \ddt{\eKin} + \dens \aVelV \cdot \grad \eKin = \rho \ddtM{\eKin} \\
+\end{align*}
+The work against gravity can similary be reorganized as a material
+derivative for the gravity potential:
+\begin{align*}
+  \aVelV \cdot \rho \gravV = \dens \grav \ddtM{z}  = \dens \ddtM{\eGrav}
+\end{align*}
+and therefore we find the following equation for the material
+derivative of the specific mechanical energy $\eMech = \eKin + \grav
+z$:
+\begin{equation}
+  \dens \ddtM{\eMech} = - \aVelV \cdot \grad p +\aVelV \cdot \dive \shearStressT
+  \label{eq:bernoulli}
+\end{equation}
+which multiplied with $dt$ gives us the differential equation for displacements along
+the stream line:
+\begin{equation}
+  \begin{split}
+    d \eMech &= - 
+    d\xyzV \cdot \frac{\grad p}{\dens} + 
+    d\xyzV \cdot \frac{\dive \shearStressT}{\dens} \\
+    &= dW_{rev} + dW_{irr} 
+  \end{split}
+  \label{eq:bernoulli2}
+\end{equation}
+This is the generic form of the Bernoulli equation. It describes the
+evolution of the mechanical energy of a parcel of fluid under the
+influence of the specific work performed against the resulting force,
+exerted on the parcel through stress by the neighbouring
+parcels. Indeed, we recall that for any control volume $\vol$:
+\begin{align*}
+  \int_\vol \grad p dV = \int_{\srf} p \nrmV ~dS = \forceV_p \\
+  \int_\vol \dive \shearStressT dV = \int_{\srf} \shearStressT \cdot \nrmV ~dS = \forceV_\shearStress 
+\end{align*}
+It should be noted that both contributions, including the viscous
+term, can be positive or negative depending on the alignment of the
+resulting force and the velocity. Indeed, a slow parcel of fluid can
+be accelerated by adjacent faster parcels through friction.
+
+\subsection{Thermal energy}
+
+For further manipulation of the energy equation, we first derive an
+additional conservation equation for the mechanical energy from
+equation \ref{eq:bernoulli}. First we rearrange the work terms:
+\begin{align*}
+  \aVelV \cdot \grad p &= \dive \pres \aVelV - \pres \dive \aVelV \\
+  \aVelV \cdot \dive \shearStressT &= \dive \shearStressT \cdot \aVelV - \shearStressT : \grad \aVelV  
+\end{align*}
+which then, using identity \ref{eq:materialToConservative} for $a =
+\eMech$, gives:
+\begin{equation}
+  \ddt{\dens \eMech} + 
+  \dive \dens \aVelV \eMech + 
+  \dive \aVelV p = p \dive \aVelV +
+  \dive \shearStressT \cdot \aVelV - \shearStressT : \grad \aVelV 
+  \label{eq:conservationKineticEnergy}
+\end{equation}
+Subtracting this expression from the energy equation
+\ref{eq:energyConservationDifferential} we find
+\begin{equation}
+  \begin{split}
+    \ddt{\rho \ener} + \dive \rho \aVelV \ener &= - \pres \dive \aVelV +
+    \shearStressT : \grad \aVelV + \dive \heatFluxV \\
+    \dens \ddtM{\ener} &= - \pres \dive \aVelV + 
+    \shearStressT : \grad \aVelV + \dive \heatFluxV 
+  \end{split}
+  \label{eq:conservationInternalEnergy}
+\end{equation}
+Defining the specific volume $\sVol = 1/\dens$, we find
+\begin{align*}
+  \dive \aVelV &= - \frac{1}{\dens} \left(\ddt{\dens} + \aVelV \cdot \grad \dens\right) = - \frac{1}{\dens} \ddtM{\dens} = \dens \ddtM{\sVol}
+\end{align*}
+we find
+\begin{equation}
+  \begin{split}
+  \dens \ddtM{\ener} &= - \dens \pres \ddtM{\sVol} +
+  \shearStressT : \grad \aVelV + \dive \heatFluxV 
+  \end{split}
+  \label{eq:materialInternalEnergy}
+\end{equation}
+which shows that the increase in the static internal energy is equal
+to the sum of the compression work, the viscous dissipation and the
+heat flux.
+
+Now we can easily show irreversibility. We recall that the velocity
+gradient is decomposed in a symmetric and antisymmetric tensor:
+\begin{align*}
+  \grad \aVelV = \shearRateT + \rotRateT
+\end{align*}
+The shear stress tensor is then defined as
+\begin{align*} 
+  \shearStressT = 2 \dynVisc \shearRateT - \bulkVisc \left(\dive \aVelV\right) \identityT \\
+\end{align*} 
+Since $\shearStressT$ and $\shearRateT$ are symmetric, and
+$\rotRateT$ is antisymmetric, we have
+\begin{align*}
+  \shearStressT : \grad \aVelV &= \shearStressT : \shearRateT = 2
+  \dynVisc \shearRateT : \shearRateT - \left(\bulkVisc \dive \aVelV
+  \right)^2
+\end{align*}
+From there on, it is left as an exercise that always $\shearStressT :
+\grad \aVelV >= 0$ for the standard value $\bulkVisc = 2/3
+\dynVisc$. This means that the viscous stresses always contribute to
+the increase of thermal energy, never to its decrease. Hence their
+effect is irreversible.
+
+\subsection{Entropy}
+
+The second law of thermodynamics quantifies the irreversibility of
+thermodynamic processes. It proceeds by defining the state variable
+\emph{entropy} \entr~, whose increase is proportional to the increase
+of internal energy $\ener$~minus the (reversible) compression work, or
+the sum of the dissipated mechanical energy $dq_{irr}$ and the heat
+load $dq$:
+\begin{align*}
+  \temp d \entr = d\ener + \pres d \sVol = dq_{irr} + dq
+\end{align*}
+we find from equation \ref{eq:conservationInternalEnergy}
+\begin{align*}
+  \dens \temp \ddtM{\entr} = \shearStressT : \grad \aVelV + \dive \heatFluxV
+\end{align*}
+Again using identity \ref{eq:materialToConservative}, we find the
+equation for the conservation of entropy:
+\begin{equation}
+  \ddt{\dens \entr} + \dive \dens \aVelV \entr = 
+  \frac{\shearStressT : \grad \aVelV}{\temp} + \frac{\dive \heatFluxV}{\temp}
+\end{equation}
+which provides us with an expression for $dq_{irr} = \shearStressT :
+\grad \aVelV$. We can easily see that in the absence of heat transfer,
+entropy can only increase, as expected.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

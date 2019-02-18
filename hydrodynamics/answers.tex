@@ -1,0 +1,241 @@
+
+%% -----------------------------------------------------------------------------
+\subsection*{Pelton turbine}
+%% -----------------------------------------------------------------------------
+
+We first determine the absolute velocity in the incoming jet
+\begin{align*}
+  \aVel_j = \frac{\vFlow_j}{A}
+\end{align*}
+We consider a control volume attached to the spoon, with the jet entry
+point denoted as 1, and the upper and lower exit jet locations denoted
+$2$ and $2'$.
+
+\subsubsection*{Stationary spoon}
+
+If no losses are encountered in the spoon, we have that
+\begin{align*}
+  p_1 + \frac{\dens \aVel_1^2}{2} = 
+  p_2 + \frac{\dens \vel_{2}^2}{2} = 
+  p_2' + \frac{\dens \vel_{2'}^2}{2}
+\end{align*}
+Since all of the pressures are the same, the norms of the absolute
+velocities in all jets are the same $\aVel_1 = \aVel_{2} =
+\aVel_{2'}$. Since also the volume flow rate is split equally over
+both exiting jets, their height - normal to the flow direction - is
+$A/2$.
+
+In order to find the reaction force, we establish the momentum balance
+on the control volume surrounding the spoon:
+\begin{itemize}
+\item For the jet entering the spoon control volume, the momentum
+  contribution is $\momentumV_1 = \dens \vFlow v_j \unitV{x} = \dens
+  v_j^2 A \unitV{x}$
+\item For the jets leaving the spoon control volume:
+  \begin{itemize}
+  \item momentum leaving in the upper jet $\momentumV_{2} = \dens
+    A/2 v_j^2 (- \cos{\alpha}~\unitV{x} + \sin{\alpha}~\unitV{y})$
+  \item momentum leaving in the lower jet $\momentumV_{2'} = \dens
+    A/2 v_j^2 (- \cos{\alpha}~\unitV{x} - \sin{\alpha}~\unitV{y})$
+    \end{itemize}
+  \item the static pressure balances out over the (closed) outer
+    surface;
+  \item on the spoon we have the integrated pressure forces associated
+    to the redirection of the jet, resulting on the force $\forceV_s$;
+  \item the contribution of the static pressure integrates out on the
+    spoon surface, again since it is closed;
+\end{itemize}
+Therefore we have the force 
+\begin{align*}
+  \forceV_s &= \momentumV_1 - \momentumV_{2} - \momentumV_{2'} \\
+  &= \dens v_j^2 (1 +  \cos{\alpha}) \unitV{x} \\
+\end{align*}
+
+\subsubsection*{Moving spoon}
+
+We check the momentum balance on the control volume moving with the
+spoon. The relative velocity entering the control volume is $\rVel_1 =
+\aVel_j - \aVel_s$: due to the motion, the spoon ``leaves behind'' an
+equivalent volume flow rate $v_s A$. When $\vel_s = \aVel_j$, then
+effectively no (new) fluid enters in the spoon control volume. The
+flow rate entering the spoon domain is then $\vFlow_s = (\vel_j -
+\vel_s) A = \rVel_1 A$.
+
+Since in the relative frame no work is performed, the total pressure
+is maintained, and therefore we have $\rVel_{2} = \rVel_{2'} =
+\rVel_1$. Following a similar reasoning as in the previous section,
+the reaction force on the spoon is
+\begin{align*}
+  \forceV_s &= \dens \vFlow_s \rVel_1 (1 + \cos{\alpha}) \unitV{x}
+\end{align*}
+The power extracted by the spoon from the flow is then
+\begin{align*}
+  \power_s = \forceV_s \cdot v_s = \dens \vFlow_s \rVel_1 \vel_s (1 +
+  \cos{\alpha})
+\end{align*}
+The kinetic energy entering the spoon is 
+\begin{align*}
+  \power_{1} = \dens \vFlow_s \frac{\vel_j^2}{2}
+\end{align*}
+The kinetic energy leaving the spoon is a little more difficult to
+compute. The absolute velocity, eg. in the upper jet, is given by
+\begin{align*}
+  \aVelV_{2} = \rVel_1 \left(- \cos{\alpha}~\unitV{x} +
+    \sin{\alpha}~\unitV{y}\right) + \vel_s ~ \unitV{x}
+\end{align*}
+Since the mass flow rate in the jet is $\dens \rVel_1 A/2$, the kinetic
+energy leaving the spoon is the same for both jets
+\begin{align*}
+  \power_{2} = \power_{2'} &= \dens \frac{\vFlow_s}{2} \frac{1}{2}
+  \left(\rVel_1^2 - 2 \cos{\alpha} \rVel_1 \vel_s + \vel_s^2\right)
+\end{align*}
+The balance of the powers entering and leaving the control volume is
+then
+\begin{align*}
+  \power_s + \power_{2} + \power_{2'} - \power_1 &= \dens \vFlow_s
+  \frac{1}{2}
+  \left(2 \rVel_1 \vel_s (1 + \cos{\alpha}) + \rVel_1^2 - 2 \cos{\alpha} \rVel_1 \vel_s + \vel_s^2 - \aVel_j^2\right)\\
+  &= \dens \vFlow_s \frac{1}{2} \left(\rVel_1^2 + 2 \rVel_1 \vel_s + \vel_s^2 - \aVel_j^2\right)\\
+  &= \dens \vFlow_s \frac{1}{2} \left(\left(\rVel_1 + \vel_s\right)^2 - \aVel_j^2\right) = 0
+\end{align*}
+
+%% -----------------------------------------------------------------------------
+\subsection*{Aircraft propulsion}
+%% -----------------------------------------------------------------------------
+
+\subsubsection*{Aircraft forces}
+
+The velocity of the aircraft is $\aVel = 180~km/h = 50~m/s$. The lift
+forces need to compensate the weight of the aircraft; therefore the
+lift should be equal to
+\begin{align*}
+  L = m g = 4800~kg \cdot 9.81~m/s^2 = 47090 N
+\end{align*}
+The corresponding lift coefficient is then 
+\begin{align*}
+  C_L = \frac{L}{\frac{1}{2} \dens \aVel^2 l \chord}
+  = \frac{L}{\frac{1}{2} \dens \aVel^2 A} 
+  = \frac{2 \cdot 47090 N}{1.2~kg/m^3 \cdot (50~m/s)^2 \cdot
+    33.9~m^2} = 0.907
+\end{align*}
+with the $\dens$ the air density, $l$ the wing span and $\chord$ the
+chord of the airfoil; $A$ the total wing surface. The Reynolds number,
+based upon the chord is
+\begin{align*}
+  Re_c = \frac{\dens \aVel C}{\mu} = 7.5 \times 10^6
+\end{align*}
+Referring to the polar in figure \label{fig:naca4412}, we find that
+this lift coefficient corresponds to an angle of attack of about
+$5^\circ$. The drag coefficient is $C_D = 0.006$. The drag force is
+then
+\begin{align*}
+  D = L \frac{C_D}{C_L} = 47090~N \frac{0.006}{0.907} = 311~N
+\end{align*}
+
+\subsubsection*{Pressure jump over the propeller}
+
+The thrust needs to balance the drag; it is generated by the pressure
+jump over the propeller:
+\begin{align*}
+  \Delta p_{propeller} 
+  = \frac{T}{A_{propeller}} 
+  = \frac{D}{\pi D^2_{propeller}/4} 
+  = \frac{4 \cdot 311~N}{\pi (2.59~m)^2} 
+  = 59.1~Pa
+\end{align*}
+
+\subsubsection*{Propulsive efficiency}
+
+We first derive the formula for the propulsive efficiency from the
+Rankine-Froude theorem in section \ref{sec:rankineFroude}.  The
+upstream velocity is the aircraft velocity $\aVel_1 = \aVel_a$. If $D$
+is the aircraft drag we want the propeller to balance it
+\begin{align*}
+  T = \frac{1}{2} \dens \frac{1}{2} \left(\aVel_3^2 -\aVel_1^2\right) 
+  \Rightarrow \aVel_3 = \sqrt{2 \frac{D}{\dens S} + \aVel_1^2}
+\end{align*}
+The useful work is the power produced to push the aircraft
+$\power_{thrust} = T \aVel_1$, whereas we will provide a power
+$\power_{fluid} = T \aVel_2$ to accelerate the fluid. The propulsive
+efficiency is thus
+\begin{align*}
+  \eff_p 
+  = \frac{\power_{thrust}}{\power_{fluid}} 
+  = \frac{\aVel_1}{\aVel_2} 
+  = \frac{2 \aVel_1}{\aVel_1 + \aVel_3} 
+  = \frac{2}{1 + \sqrt{1 + \frac{2D}{\dens S \aVel_1^2}}} 
+  = \frac{2}{1 + \sqrt{1 + C_D^\prime}}
+\end{align*}
+where $C_D^\prime$ is the drag coefficient of the airfoil, referenced
+to the disk area and the upstream kinetic energy. This drag coefficient is
+\begin{align*}
+  C_D^\prime 
+  = \frac{8D}{\dens \aVel^2 \pi D^2} 
+  = \frac{8 \cdot 311~N}{1.226~kg/m^3 (50~m/s)^2 \pi (2.59 m)^2} 
+  = 0.12
+\end{align*}
+Therefore the propulsive efficiency is
+\begin{align*}
+  \eff_p = \frac{2}{1 + \sqrt{1 + 0.12}} = 97\%
+\end{align*}
+
+\subsubsection*{Power}
+
+The power needed to accelerate the air is then given by
+\begin{align*}
+  \power_{fluid} 
+  = \frac{\power_{thrust}}{\eff_p} 
+  = \frac{D \aVel}{\eff_p} 
+  = \frac{311~N \cdot 50~m/s}{0.97} 
+  = 16~kW
+\end{align*}
+This is also theoretically the power the propeller engine has to
+deliver.
+
+\subsubsection*{Remarks}
+
+These values are not realistic, mostly since we only took the drag of
+the wing into account, but not that of the fuselage. 
+
+\subsection*{Centrifugal pump}
+
+\subsubsection*{Velocity triangles at pump inlet}
+
+\begin{itemize}
+\item the inlet radial velocity at (1) is found as $\aVel_{r1} = Q/(2
+  \pi R_1 h_1) = 22.1~m/s$;
+\item the inlet radial velocity at (1') is found as $\aVel_{r1} =
+  \vFlow/(2 \pi R_1 h_1 (1-b_1)) = 24.6 m/s$
+\item the inlet rotation velocity is $\fVel_1 = \rot R_1 = 9.42~m/s$
+\item the inlet relative flow angles are respectively $\beta_1 =
+  \arctan(-u_1/\aVel_{r1}) = -23.1^\circ$ and $\beta_{1'} =
+  \arctan{-u_1/\aVel_{r1'}} = -20.9^\circ$
+\end{itemize}
+
+
+\subsubsection*{Velocity triangles at pump outlet}
+
+\begin{itemize}
+\item the outlet rotation velocity is $\fVel_2 = 23.6~m/s$;
+\item the outlet radial velocity at 2' is $\aVel_{r2} = \vFlow/(2 \pi
+  R_2 h_2' (1-b_2)) = 9.07~m/s$ 
+\item the radial velocity at 2 $\aVel_{r2} = \vFlow/(2 \pi R_2 h_2) = 4.42~m/s$;
+\item the outlet tangential relative velocity is in the rotor
+  $\rVel_{u2'} = \rVel_{r2} \arctan{\beta_{b2}} = - 4.23~m/s$ and
+  therefore $\aVel_{u2'} = \rVel_{u2'} + \fVel_{u2} = 19.4~m/s$
+\item due to conservation of angular momentum, we have $\aVel_{u2} =
+  \aVel_{u2'}$ and therefore $\rVel_{u2} = \rVel_{u2'}$;
+\end{itemize}
+
+\subsubsection*{Torque and power}
+
+The torque is given by 
+\begin{align*}
+  \torque
+  = \mFlow \left(r_2 \aVel_{u2} - r_1 \aVel_{u1} \right) 
+  = \dens \vFlow r_2 \aVel_{u2} = 60.6~Nm
+\end{align*}
+The power is given by
+\begin{align*}
+  \power = \torque \rot = 19~kW
+\end{align*}

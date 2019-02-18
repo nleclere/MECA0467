@@ -1,0 +1,81 @@
+
+\tdplotsetmaincoords{60}{110}
+
+%define polar coordinates for some vector
+%TODO: look into using 3d spherical coordinate system
+\pgfmathsetmacro{\rvec}{.8}
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\phivec}{60}
+\pgfmathsetmacro{\rvecsintheta}{0.4}
+
+%start tikz picture, and use the tdplot_main_coords style to implement the display 
+%coordinate transformation provided by 3dplot
+
+\tikzsetnextfilename{rotatingFrame}
+\begin{tikzpicture}[scale=5,tdplot_main_coords]
+
+%set up some coordinates 
+%-----------------------
+\coordinate (O) at (0,0,0);
+
+%determine a coordinate (P) using (r,\theta,\phi) coordinates.  This command
+%also determines (Pxy), (Pxz), and (Pyz): the xy-, xz-, and yz-projections
+%of the point (P).
+%syntax: \tdplotsetcoord{Coordinate name without parentheses}{r}{\theta}{\phi}
+\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+
+%draw figure contents
+%--------------------
+
+%draw the main coordinate system axes
+\draw[line width=1.5pt,->,>=latex] (0,0,0) -- (0.5,0,0) node[anchor=north east]{$$};
+\draw[line width=1.5pt,->,>=latex] (0,0,0) -- (0,0.5,0) node[anchor=north west]{$$};
+\draw[line width=1.5pt,->,>=latex] (0,0,0) -- (0,0,1) node[anchor=south]{$\unitV{\rot}$};
+
+
+
+%draw a vector from origin to point (P) 
+\draw[->,>=latex,color=red,line width=1.5pt] (O) -- (P) node[anchor=north east]{$P$};
+
+%draw projection on xy plane, and a connecting line
+\draw[dashed, color=red] (Pz) -- (P);
+\draw[dashed, color=red] (O) -- (Pz) node [anchor=east]{$z$};
+\draw[dashed, color=red] (O) -- (Pxy) node [anchor=east]{$r$};
+\draw[dashed, color=red] (P) -- (Pxy);
+
+%draw the angle \phi, and label it
+%syntax: \tdplotdrawarc[coordinate frame, draw options]{center point}{r}{angle}{label options}{label}
+
+\tdplotdrawarc[dashed, color=red]{(O)}{0.2}{0}{\phivec}{anchor=north}{$\theta$}
+\tdplotdrawarc[dashed]{(Pz)}{\rvecsintheta}{0}{359}{anchor=north}{}
+\tdplotdrawarc[->,>=latex,line width=1.3pt]{(Pz)}{0.1}{120}{350}{anchor=south}{$\rotV$}
+
+
+
+
+
+%set the rotated coordinate system so the x'-y' plane lies within the
+%"theta plane" of the main coordinate system
+%syntax: \tdplotsetthetaplanecoords{\phi}
+\tdplotsetthetaplanecoords{\phivec}
+
+%% -----
+%set the rotated coordinate definition within display using a translation
+% coordinate and Euler angles in the "z(\alpha)y(\beta)z(\gamma)" euler rotation convention
+%syntax: \tdplotsetrotatedcoords{\alpha}{\beta}{\gamma}
+%%% -----
+\tdplotsetrotatedcoords{\phivec}{0}{0}
+
+%translate the rotated coordinate system
+%syntax: \tdplotsetrotatedcoordsorigin{point}
+\tdplotsetrotatedcoordsorigin{(P)}
+
+%use the tdplot_rotated_coords style to work in the rotated, translated coordinate frame
+\draw[line width=1.5pt,tdplot_rotated_coords,->,>=latex] (0,0,0) -- (.2,0,0) node[anchor=north west]{$\unitV{r}$};
+\draw[line width=1.5pt,tdplot_rotated_coords,->,>=latex] (0,0,0) -- (0,.2,0) node[anchor=west]{$\unitV{u}$};
+\draw[line width=1.5pt,tdplot_rotated_coords,->,>=latex] (0,0,0) -- (0,0,.2) node[anchor=south]{$\unitV{\rot}$};
+
+
+
+
+\end{tikzpicture}
